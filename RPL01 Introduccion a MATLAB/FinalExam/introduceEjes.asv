@@ -1,0 +1,10 @@
+function [ ejes ] = introduceEjes( )
+%Pregunta los ejes de la grafica del usuario
+%Estan en la forma 
+%[minX maxX minY maxY]
+    ejes = zeros[1,4];
+    
+    
+    return ejes;
+end
+

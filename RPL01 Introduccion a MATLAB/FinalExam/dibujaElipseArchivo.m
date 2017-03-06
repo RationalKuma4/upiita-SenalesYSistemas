@@ -1,7 +1,9 @@
 function [ ] = dibujaElipseArchivo( nPuntos )
-%UNTITLED7 Summary of this function goes here
-%   Detailed explanation goes here
-
-
+%Carga un archivo con coordenadas para dibujar elipses
+    elipses = load('cheeseEllipse.txt');
+    
+    for elipse = elipses'
+        dibujaElipse(elipse, nPuntos);
+    end
 end
 

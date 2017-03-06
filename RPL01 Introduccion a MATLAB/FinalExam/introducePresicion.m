@@ -1,7 +1,5 @@
 function [ nPuntos ] = introducePresicion( )
-%UNTITLED8 Summary of this function goes here
-%   Detailed explanation goes here
-
-
+%Introeduce los puntos de precision
+    nPuntos = input('Introudce a cuantos puntos graficar: ');
 end
 

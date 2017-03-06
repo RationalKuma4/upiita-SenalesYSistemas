@@ -1,7 +1,4 @@
 function [ ] = cambiaEjes( ejes )
-%UNTITLED4 Summary of this function goes here
-%   Detailed explanation goes here
-
-
+    axis(ejes)
 end
 

@@ -1,4 +1,4 @@
-function [ ] = explicaPrograma()
+function [  ] = explainProgram( )
 %Funcion que explica las opciones del programas
     disp('**********************************************************')
     disp('Elección del programa')

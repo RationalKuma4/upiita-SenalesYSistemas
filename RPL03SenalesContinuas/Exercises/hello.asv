@@ -1,0 +1,17 @@
+% Hello wolrd.m
+% My first hello world program
+
+disp('Hello world');
+disp('I am goint ot learn matlab')
+
+start = clock
+size(start)
+
+staatString = datestr(start)
+disp(['I started learing matlab on ' staatString ' hola'])
+
+learnConstant = 1.5;
+tau = (1.5 * 24) * 60 * 60;
+endOfClass = (5 * 24) * (60) * 60;
+knowledgeAtEnd = 1 - exp(endOfClass / tau);
+disp(['At the end of 6.094, I will know '] num2str(knowledgeAtEnd * 100) '% of MATLAB')

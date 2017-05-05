@@ -66,11 +66,71 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Pr&aacute;ctica 3: Se&ntilde;ales continuas</h1><!--introduction--><p>Alvarado Balbuena Jorge Anselmo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Ejercicio 1</a></li><li><a href="#2">Ejercicio 2</a></li><li><a href="#3">Ejercicio 3</a></li><li><a href="#4">Ejercicio 4</a></li><li><a href="#5">Ejercicio 5</a></li></ul></div><h2>Ejercicio 1<a name="1"></a></h2><p>1. Crea una funci&oacute;n que se llame fun1 y reciba dos parametros <img src="PracticaTres_eq08589834809570054062.png" alt="$\omega$"> y <img src="PracticaTres_eq05508344529756732484.png" alt="$a$"> la funci&oacute;n debe regresar el resultado <img src="PracticaTres_eq01407365636722940873.png" alt="$F(\omega)=a/(a^2+\omega^2)$">, reporta la grafica <img src="PracticaTres_eq04634431881849194213.png" alt="$F(\omega)$"> vs <img src="PracticaTres_eq08589834809570054062.png" alt="$\omega$"> en el intervalo <img src="PracticaTres_eq01169792831847459841.png" alt="$[-2,2]$"> para <img src="PracticaTres_eq13016372792947090052.png" alt="$a=1$"></p><pre class="codeinput">fun1 = @(w, a)a./(a.^2+w.^2);
-w = -2:1:2;
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 3: Se&ntilde;ales continuas</h1><!--introduction--><p>Alvarado Balbuena Jorge Anselmo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Ejercicio 1</a></li><li><a href="#2">Ejercicio 2</a></li><li><a href="#3">Ejercicio 3</a></li><li><a href="#4">Ejercicio 4</a></li><li><a href="#5">Ejercicio 5</a></li></ul></div><h2>Ejercicio 1<a name="1"></a></h2><p>1. Crea una funci&oacute;n que se llame fun1 y reciba dos parametros <img src="PracticaTres_eq08589834809570054062.png" alt="$\omega$"> y <img src="PracticaTres_eq05508344529756732484.png" alt="$a$"> la funci&oacute;n debe regresar el resultado <img src="PracticaTres_eq01407365636722940873.png" alt="$F(\omega)=a/(a^2+\omega^2)$">, reporta la grafica <img src="PracticaTres_eq04634431881849194213.png" alt="$F(\omega)$"> vs <img src="PracticaTres_eq08589834809570054062.png" alt="$\omega$"> en el intervalo <img src="PracticaTres_eq01169792831847459841.png" alt="$[-2,2]$"> para <img src="PracticaTres_eq13016372792947090052.png" alt="$a=1$"></p><pre class="codeinput">fun1 = @(w, a) a./(a.^2+w.^2);
+w = -2:0.01:2;
 a = 1;
-plot(fun1(w,a));
-</pre><img vspace="5" hspace="5" src="PracticaTres_01.png" alt=""> <h2>Ejercicio 2<a name="2"></a></h2><p>2. Para la funci&oacute;n <img src="PracticaTres_eq16179711886080607310.png" alt="$f(t)=e^{-2t}u(t)$"> reporta la gr&aacute;fica de <img src="PracticaTres_eq09478123530129115431.png" alt="$f(t)$"> de <img src="PracticaTres_eq02723052323934408023.png" alt="$[-2,5]$">, <img src="PracticaTres_eq14837990414550488255.png" alt="$F(w)$"> en <img src="PracticaTres_eq01315095555081819470.png" alt="$[-10,10]$"> el espectro de magnitud y el espectro de fase en <img src="PracticaTres_eq01315095555081819470.png" alt="$[-10,10]$"> (puedes consultar con help la descripci&oacute;n de abs y angle)</p><h2>Ejercicio 3<a name="3"></a></h2><p>3. Realiza las mismas operaciones que Lathi en las secciones M1.1 a M1.4 al final del cap&iacute;tulo 1 y antes de la secci&oacute;n de probelmas</p><h2>Ejercicio 4<a name="4"></a></h2><p>4. Resuelve el problema 1.2.1 usando las herramientas del paso anterior.</p><h2>Ejercicio 5<a name="5"></a></h2><p>5. ejecuta las instrucciones de c&oacute;digo simb&oacute;lico para encontrar la tranformada de Fourier de <img src="PracticaTres_eq02520246179772945396.png" alt="$f(t)=e^{-at}u(t)$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+plot(w, fun1(w,a));
+</pre><img vspace="5" hspace="5" src="PracticaTres_01.png" alt=""> <h2>Ejercicio 2<a name="2"></a></h2><p>2. Para la funci&oacute;n <img src="PracticaTres_eq16179711886080607310.png" alt="$f(t)=e^{-2t}u(t)$"> reporta la gr&aacute;fica de <img src="PracticaTres_eq09478123530129115431.png" alt="$f(t)$"> de <img src="PracticaTres_eq02723052323934408023.png" alt="$[-2,5]$">, <img src="PracticaTres_eq14837990414550488255.png" alt="$F(w)$"> en <img src="PracticaTres_eq01315095555081819470.png" alt="$[-10,10]$"> el espectro de magnitud y el espectro de fase en <img src="PracticaTres_eq01315095555081819470.png" alt="$[-10,10]$"> (puedes consultar con help la descripci&oacute;n de abs y angle)</p><pre class="codeinput">t = -2:1:5;
+w = -10:0.01:10;
+u = @(t) t&gt;=0;
+fun2 = @(t) exp(-2.*t).*u(t);
+plot(t, fun2(t));
+</pre><img vspace="5" hspace="5" src="PracticaTres_02.png" alt=""> <h2>Ejercicio 3<a name="3"></a></h2><p>3. Realiza las mismas operaciones que Lathi en las secciones M1.1 a M1.4 al final del cap&iacute;tulo 1 y antes de la secci&oacute;n de probelmas. La funcion es <img src="PracticaTres_eq01633305060567381202.png" alt="$f(t)=e^{-2t}cos(2 \pi t)$"></p><div><ul><li>M1.1</li></ul></div><pre class="codeinput">f = @(t) exp(-t).*cos(2*pi*t);
+g = inline(<span class="string">'exp(-t).*cos(2*pi*t)'</span>,<span class="string">'t'</span>);
+t = 0;
+f(t);
+f(0);
+t = (-2:2);
+f(t);
+f = @(t) exp(-t).*cos(2*pi*t);
+g = inline(<span class="string">'exp(-t).*cos(2*pi*t)'</span>,<span class="string">'t'</span>);
+t = 0;
+f(t);
+f(0);
+t = (-2:2);
+f(t);
+plot(t,f(t))
+title(<span class="string">'M1.1 Figura 1'</span>)
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'f(t)'</span>);
+grid;
+
+figure
+t = (-2:0.01:2);
+f(t);
+plot(t,f(t))
+title(<span class="string">'M1.1 Figura 2'</span>)
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'f(t)'</span>);
+grid;
+
+<span class="comment">%</span>
+<span class="comment">% * M1.2</span>
+u = @(t) t&gt;=0;
+figure
+t0 = (-2:2);
+plot(t0, u(t0))
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'u(t)'</span>);
+title(<span class="string">'Figura M1.2 Figura 1'</span>)
+
+figure
+t = (-2:0.01:2);
+plot(t, u(t))
+xlabel(<span class="string">'t'</span>);
+axis([-2 2 -0.1 1.1])
+ylabel(<span class="string">'u(t)'</span>);
+title(<span class="string">'Figura M1.2 Figura 2'</span>)
+
+p = @(t) t&gt;=0 &amp; t&lt;1;
+figure
+t = (-1:0.01:2);
+plot(t,p(t));
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'p(t) = u(t)-u(t-1)'</span>);
+axis ([-1 2 -.1 1.1]);
+title(<span class="string">'Figura M1.2 Figura 3'</span>)
+</pre><img vspace="5" hspace="5" src="PracticaTres_03.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_04.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_05.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_06.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_07.png" alt=""> <h2>Ejercicio 4<a name="4"></a></h2><p>4. Resuelve el problema 1.2.1 usando las herramientas del paso anterior.</p><h2>Ejercicio 5<a name="5"></a></h2><p>5. ejecuta las instrucciones de c&oacute;digo simb&oacute;lico para encontrar la tranformada de Fourier de <img src="PracticaTres_eq02520246179772945396.png" alt="$f(t)=e^{-at}u(t)$"></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Práctica 3: Señales continuas
 % Alvarado Balbuena Jorge Anselmo
@@ -78,14 +138,78 @@ plot(fun1(w,a));
 %% 
 %% Ejercicio 1
 % 1. Crea una función que se llame fun1 y reciba dos parametros $\omega$ y $a$ la función debe regresar el resultado $F(\omega)=a/(a^2+\omega^2)$, reporta la grafica $F(\omega)$ vs $\omega$ en el intervalo $[-2,2]$ para $a=1$
-fun1 = @(w, a)a./(a.^2+w.^2);
-w = -2:1:2;
+fun1 = @(w, a) a./(a.^2+w.^2);
+w = -2:0.01:2;
 a = 1;
-plot(fun1(w,a));
+plot(w, fun1(w,a));
 %% Ejercicio 2
 % 2. Para la función $f(t)=e^{-2t}u(t)$ reporta la gráfica de $f(t)$ de $[-2,5]$, $F(w)$ en $[-10,10]$ el espectro de magnitud y el espectro de fase en $[-10,10]$ (puedes consultar con help la descripción de abs y angle)
+t = -2:1:5;
+w = -10:0.01:10;
+u = @(t) t>=0;
+fun2 = @(t) exp(-2.*t).*u(t);
+plot(t, fun2(t));
 %% Ejercicio 3
-% 3. Realiza las mismas operaciones que Lathi en las secciones M1.1 a M1.4 al final del capítulo 1 y antes de la sección de probelmas
+% 3. Realiza las mismas operaciones que Lathi en las secciones M1.1 a M1.4 al final del capítulo 1 y antes de la sección de probelmas.
+% La funcion es $f(t)=e^{-2t}cos(2 \pi t)$
+% 
+% * M1.1
+f = @(t) exp(-t).*cos(2*pi*t);
+g = inline('exp(-t).*cos(2*pi*t)','t');
+t = 0;
+f(t);
+f(0);
+t = (-2:2);
+f(t);
+f = @(t) exp(-t).*cos(2*pi*t);
+g = inline('exp(-t).*cos(2*pi*t)','t');
+t = 0;
+f(t);
+f(0);
+t = (-2:2);
+f(t);
+plot(t,f(t))
+title('M1.1 Figura 1')
+xlabel('t');
+ylabel('f(t)');
+grid;
+
+figure
+t = (-2:0.01:2);
+f(t);
+plot(t,f(t))
+title('M1.1 Figura 2')
+xlabel('t');
+ylabel('f(t)');
+grid;
+
+%
+% * M1.2
+u = @(t) t>=0;
+figure
+t0 = (-2:2);
+plot(t0, u(t0))
+xlabel('t'); 
+ylabel('u(t)');
+title('Figura M1.2 Figura 1')
+
+figure
+t = (-2:0.01:2);
+plot(t, u(t))
+xlabel('t'); 
+axis([-2 2 -0.1 1.1])
+ylabel('u(t)');
+title('Figura M1.2 Figura 2')
+
+p = @(t) t>=0 & t<1;
+figure
+t = (-1:0.01:2); 
+plot(t,p(t));
+xlabel('t'); 
+ylabel('p(t) = u(t)-u(t-1)');
+axis ([-1 2 -.1 1.1]);
+title('Figura M1.2 Figura 3')
+
 %% Ejercicio 4
 % 4. Resuelve el problema 1.2.1 usando las herramientas del paso anterior.
 %% Ejercicio 5

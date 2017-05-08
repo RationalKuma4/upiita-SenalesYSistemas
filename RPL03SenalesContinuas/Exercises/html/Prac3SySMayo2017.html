@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Pr&aacute;ctica 3: Se&ntilde;ales continuas</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-05-04"><meta name="DC.source" content="Prac3SySMayo2017.m"><style type="text/css">
+      --><title>Pr&aacute;ctica 3: Se&ntilde;ales continuas</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-05-08"><meta name="DC.source" content="Prac3SySMayo2017.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -227,14 +227,29 @@ axis([-10, 10 -0.5 1.5])
 </pre><img vspace="5" hspace="5" src="Prac3SySMayo2017_10.png" alt=""> <h2>Un poco de simb&oacute;lico<a name="14"></a></h2><p><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-094-introduction-to-matlab-january-iap-2010/lecture-notes/MIT6_094IAP10_lec05.pdf">Documento</a></p><p>Realizar las siguientes integrales</p><p><img src="Prac3SySMayo2017_eq11190555004964874609.png" alt="$$\int_a^bxe^{-x}dx,\;\;\int_0^2xe^{-x}dx,\;\;\int_0^\infty xe^{-x}dx$$"></p><pre class="codeinput">syms <span class="string">a</span> <span class="string">b</span>  <span class="string">x</span>
 Q=int(x*exp(-x),a,b)
 subs(Q,{a,b},{0,2})
-</pre><pre class="codeoutput error">Error using sym/subsindex (line 766)
-Invalid indexing or function definition. When defining a function, ensure that the arguments are symbolic variables and the body of the function is a SYM expression. When indexing, the input must be numeric, logical, or ':'.
-
-Error in Prac3SySMayo2017 (line 168)
-Q=int(x*exp(-x),a,b)
+</pre><pre class="codeoutput"> 
+Q =
+ 
+exp(-a)*(a + 1) - exp(-b)*(b + 1)
+ 
+ 
+ans =
+ 
+1 - 3*exp(-2)
+ 
 </pre><p>El sigueinte c&oacute;digo produce error</p><pre class="language-matlab">subs(Q,{a,b},{0,inf})
 </pre><p>Pero este c&oacute;digo no, &iquest;Por qu&eacute;?</p><pre class="codeinput">Q=int(x*exp(-x),a,inf)
 subs(Q,a,0)
+</pre><pre class="codeoutput"> 
+Q =
+ 
+exp(-a)*(a + 1)
+ 
+ 
+ans =
+ 
+1
+ 
 </pre><h2>Observaciones<a name="16"></a></h2><p>Tener claro que esto no es absoluto, es una manera de implementaci&oacute;n en MATLAB, es decir, la implementaci&oacute;n de las se&ntilde;ales podr&iacute;a variar incluso en el mismo MATLAB, y por supuesto si se utiliza otro software</p><h2>Notas<a name="17"></a></h2><div><ol><li>Guia de Matlab del  <a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-094-introduction-to-matlab-january-iap-2010/index.htm">MIT OCW</a></li><li>Backgroun secci?n MB de Lathi</li></ol></div><h2>Entregables<a name="18"></a></h2><p>Se revisa una publicaci&oacute;n (html) de la pr&aacute;ctica</p><div><ol><li>Crea una funci&oacute;n que se llame <i>fun1</i> y reciba dos parametros <img src="Prac3SySMayo2017_eq08589834809570054062.png" alt="$\omega$"> y <img src="Prac3SySMayo2017_eq05508344529756732484.png" alt="$a$"> la funci&oacute;n debe regresar el resultado <img src="Prac3SySMayo2017_eq01407365636722940873.png" alt="$F(\omega)=a/(a^2+\omega^2)$">, reporta la grafica <img src="Prac3SySMayo2017_eq04634431881849194213.png" alt="$F(\omega)$"> vs <img src="Prac3SySMayo2017_eq08589834809570054062.png" alt="$\omega$"> en el intervalo <img src="Prac3SySMayo2017_eq01169792831847459841.png" alt="$[-2,2]$"> para <img src="Prac3SySMayo2017_eq13016372792947090052.png" alt="$a=1$"></li><li>Para la funci&oacute;n <img src="Prac3SySMayo2017_eq16179711886080607310.png" alt="$f(t)=e^{-2t}u(t)$"> reporta la gr&aacute;fica de <img src="Prac3SySMayo2017_eq09478123530129115431.png" alt="$f(t)$"> de <img src="Prac3SySMayo2017_eq02723052323934408023.png" alt="$[-2,5]$">, <img src="Prac3SySMayo2017_eq14837990414550488255.png" alt="$F(w)$"> en <img src="Prac3SySMayo2017_eq01315095555081819470.png" alt="$[-10,10]$"> el espectro de magnitud y el espectro de fase en <img src="Prac3SySMayo2017_eq01315095555081819470.png" alt="$[-10,10]$"> (puedes consultar con help la descripci&oacute;n de <i>abs</i> y <i>angle</i>)</li><li>Realiza las mismas operaciones que Lathi en las secciones M1.1 a M1.4 al final del cap&iacute;tulo 1 y antes de la secci&oacute;n de probelmas</li><li>Resuelve el problema 1.2.1 usando las herramientas del paso anterior.</li><li>ejecuta las instrucciones de c&oacute;digo simb&oacute;lico para encontrar la tranformada de Fourier de <img src="Prac3SySMayo2017_eq02520246179772945396.png" alt="$f(t)=e^{-at}u(t)$"> indicada en el sigueinte <a href="http://www.mateyasi.org/transformada-de-fourier-continua.html">enlace</a></li></ol></div><p>El c&oacute;dico de esta publicaci&oacute;n lo puedes encontrar en el siguiente enlace <a href="https://www.dropbox.com/s/szq6mdu1xxqa19h/Prac3SySMayo2017.m?dl=0">enlace</a></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Práctica 3: Señales continuas

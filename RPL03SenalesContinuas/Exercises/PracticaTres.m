@@ -10,18 +10,28 @@ a = 1;
 plot(w, fun1(w,a)); %Grafica
 %% Ejercicio 2
 % 2. Para la función $f(t)=e^{-2t}u(t)$ reporta la gráfica de $f(t)$ de $[-2,5]$, $F(w)$ en $[-10,10]$ el espectro de magnitud y el espectro de fase en $[-10,10]$ (puedes consultar con help la descripción de abs y angle)
-t = -2:0.01:5;
-u = @(t) (1).*(t>=0);
+t = -2:0.01:5;  %Intervalos
+u = @(t) (1).*(t>=0);   %Funciones
 fun2 = @(t) exp(-2.*t).*u(t);
 
+w = -10:1:10; %Intevalo y funciones
+fw = @(w) 1./(2+1i.*w); %Funcion tranformada
 figure
+plot3(w, fw(w), fw(w), 'LineWidth', 2)
+xlabel('t');
+ylabel('Re');
+zlabel('Im');
+title('F(w)');
+grid;
+
+figure  %Grafica
 plot(t, fun2(t));
 xlabel('t')
 ylabel('f(x)')
 title('Funcion Original')
 grid;
 
-w = -10:1:10;
+w = -10:0.01:10; %Intevalo y funciones
 fw = @(w) (1./(1i.*w+2));
 
 figure 
@@ -153,10 +163,10 @@ E_g = integral(g_squared, 0,100);
 %% Ejercicio 4
 % 4. Resuelve el problema 1.2.1 usando las herramientas del paso anterior.
 % 
-a = @(t) 0.*(t<=6);
+a = @(t) 0.*(t<=6); %Funciones
 b = @(t) ((t/6)-2).*(6<=t & t<=15);
 c = @(t) ((-t/18)+4/3).*(15<t & t<24);
-
+% Graficas de subplot
 figure
 subplot(3, 2, 1)
 t = (-5:.01:30);
@@ -203,7 +213,7 @@ ylabel('x(t/2)')
 title('d')
 grid;
 
-
+%Graficas independientes
 figure
 t = (-5:.01:30);
 plot(t, (a(t)+b(t)+c(t)))
@@ -252,9 +262,9 @@ grid;
 %% Ejercicio 5
 % 5. Ejecuta las instrucciones de código simbólico para encontrar la tranformada de Fourier de $f(t)=e^{-at}u(t)$
 %
-syms a t w j
-f = int(exp(-t.*(a+1j.*w)), t, 0, inf)
-subs(f,0,0)
+syms a t w j %Declaracion de variables simbolicas
+f = int(exp(-t.*(a+1j.*w)), t, 0, inf) %Integral
+subs(f,0,0) % Substitucion
 
 
 

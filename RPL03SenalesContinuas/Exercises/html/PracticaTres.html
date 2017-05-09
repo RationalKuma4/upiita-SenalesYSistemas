@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Pr&aacute;ctica 3: Se&ntilde;ales continuas</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-05-08"><meta name="DC.source" content="PracticaTres.m"><style type="text/css">
+      --><title>Pr&aacute;ctica 3: Se&ntilde;ales continuas</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-05-09"><meta name="DC.source" content="PracticaTres.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -70,18 +70,28 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 w = -2:0.01:2; <span class="comment">%Rango de valores</span>
 a = 1;
 plot(w, fun1(w,a)); <span class="comment">%Grafica</span>
-</pre><img vspace="5" hspace="5" src="PracticaTres_01.png" alt=""> <h2>Ejercicio 2<a name="2"></a></h2><p>2. Para la funci&oacute;n <img src="PracticaTres_eq16179711886080607310.png" alt="$f(t)=e^{-2t}u(t)$"> reporta la gr&aacute;fica de <img src="PracticaTres_eq09478123530129115431.png" alt="$f(t)$"> de <img src="PracticaTres_eq02723052323934408023.png" alt="$[-2,5]$">, <img src="PracticaTres_eq14837990414550488255.png" alt="$F(w)$"> en <img src="PracticaTres_eq01315095555081819470.png" alt="$[-10,10]$"> el espectro de magnitud y el espectro de fase en <img src="PracticaTres_eq01315095555081819470.png" alt="$[-10,10]$"> (puedes consultar con help la descripci&oacute;n de abs y angle)</p><pre class="codeinput">t = -2:0.01:5;
-u = @(t) (1).*(t&gt;=0);
+</pre><img vspace="5" hspace="5" src="PracticaTres_01.png" alt=""> <h2>Ejercicio 2<a name="2"></a></h2><p>2. Para la funci&oacute;n <img src="PracticaTres_eq16179711886080607310.png" alt="$f(t)=e^{-2t}u(t)$"> reporta la gr&aacute;fica de <img src="PracticaTres_eq09478123530129115431.png" alt="$f(t)$"> de <img src="PracticaTres_eq02723052323934408023.png" alt="$[-2,5]$">, <img src="PracticaTres_eq14837990414550488255.png" alt="$F(w)$"> en <img src="PracticaTres_eq01315095555081819470.png" alt="$[-10,10]$"> el espectro de magnitud y el espectro de fase en <img src="PracticaTres_eq01315095555081819470.png" alt="$[-10,10]$"> (puedes consultar con help la descripci&oacute;n de abs y angle)</p><pre class="codeinput">t = -2:0.01:5;  <span class="comment">%Intervalos</span>
+u = @(t) (1).*(t&gt;=0);   <span class="comment">%Funciones</span>
 fun2 = @(t) exp(-2.*t).*u(t);
 
+w = -10:1:10; <span class="comment">%Intevalo y funciones</span>
+fw = @(w) 1./(2+1i.*w); <span class="comment">%Funcion tranformada</span>
 figure
+plot3(w, fw(w), fw(w), <span class="string">'LineWidth'</span>, 2)
+xlabel(<span class="string">'t'</span>);
+ylabel(<span class="string">'Re'</span>);
+zlabel(<span class="string">'Im'</span>);
+title(<span class="string">'F(w)'</span>);
+grid;
+
+figure  <span class="comment">%Grafica</span>
 plot(t, fun2(t));
 xlabel(<span class="string">'t'</span>)
 ylabel(<span class="string">'f(x)'</span>)
 title(<span class="string">'Funcion Original'</span>)
 grid;
 
-w = -10:1:10;
+w = -10:1:10; <span class="comment">%Intevalo y funciones</span>
 fw = @(w) (1./(1i.*w+2));
 
 figure
@@ -97,7 +107,8 @@ xlabel(<span class="string">'w'</span>)
 ylabel(<span class="string">'Angulo'</span>)
 title(<span class="string">'Espectro de fase'</span>)
 grid;
-</pre><img vspace="5" hspace="5" src="PracticaTres_02.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_03.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_04.png" alt=""> <h2>Ejercicio 3<a name="3"></a></h2><p>3. Realiza las mismas operaciones que Lathi en las secciones M1.1 a M1.4 al final del cap&iacute;tulo 1 y antes de la secci&oacute;n de probelmas. La funcion es <img src="PracticaTres_eq01633305060567381202.png" alt="$f(t)=e^{-2t}cos(2 \pi t)$"></p><div><ul><li>M1.1</li></ul></div><pre class="codeinput">f = @(t) exp(-t).*cos(2*pi*t);
+</pre><pre class="codeoutput">Warning: Imaginary parts of complex X, Y, and/or Z arguments ignored 
+</pre><img vspace="5" hspace="5" src="PracticaTres_02.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_03.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_04.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_05.png" alt=""> <h2>Ejercicio 3<a name="3"></a></h2><p>3. Realiza las mismas operaciones que Lathi en las secciones M1.1 a M1.4 al final del cap&iacute;tulo 1 y antes de la secci&oacute;n de probelmas. La funcion es <img src="PracticaTres_eq01633305060567381202.png" alt="$f(t)=e^{-2t}cos(2 \pi t)$"></p><div><ul><li>M1.1</li></ul></div><pre class="codeinput">f = @(t) exp(-t).*cos(2*pi*t);
 t = 0;
 f(t);
 f(0);
@@ -204,10 +215,10 @@ t = (0:0.001:100);
 E_g = sum(g_squared(t)*0.001);
 
 E_g = integral(g_squared, 0,100);
-</pre><img vspace="5" hspace="5" src="PracticaTres_05.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_06.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_07.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_08.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_09.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_10.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_11.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_12.png" alt=""> <h2>Ejercicio 4<a name="4"></a></h2><p>4. Resuelve el problema 1.2.1 usando las herramientas del paso anterior.</p><pre class="codeinput">a = @(t) 0.*(t&lt;=6);
+</pre><img vspace="5" hspace="5" src="PracticaTres_06.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_07.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_08.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_09.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_10.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_11.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_12.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_13.png" alt=""> <h2>Ejercicio 4<a name="4"></a></h2><p>4. Resuelve el problema 1.2.1 usando las herramientas del paso anterior.</p><pre class="codeinput">a = @(t) 0.*(t&lt;=6); <span class="comment">%Funciones</span>
 b = @(t) ((t/6)-2).*(6&lt;=t &amp; t&lt;=15);
 c = @(t) ((-t/18)+4/3).*(15&lt;t &amp; t&lt;24);
-
+<span class="comment">% Graficas de subplot</span>
 figure
 subplot(3, 2, 1)
 t = (-5:.01:30);
@@ -254,7 +265,7 @@ ylabel(<span class="string">'x(t/2)'</span>)
 title(<span class="string">'d'</span>)
 grid;
 
-
+<span class="comment">%Graficas independientes</span>
 figure
 t = (-5:.01:30);
 plot(t, (a(t)+b(t)+c(t)))
@@ -299,9 +310,9 @@ xlabel(<span class="string">'t-&gt;'</span>)
 ylabel(<span class="string">'x(t/2)'</span>)
 title(<span class="string">'d'</span>)
 grid;
-</pre><img vspace="5" hspace="5" src="PracticaTres_13.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_14.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_15.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_16.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_17.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_18.png" alt=""> <h2>Ejercicio 5<a name="5"></a></h2><p>5. Ejecuta las instrucciones de c&oacute;digo simb&oacute;lico para encontrar la tranformada de Fourier de <img src="PracticaTres_eq02520246179772945396.png" alt="$f(t)=e^{-at}u(t)$"></p><pre class="codeinput">syms <span class="string">a</span> <span class="string">t</span> <span class="string">w</span> <span class="string">j</span>
-f = int(exp(-t.*(a+1j.*w)), t, 0, inf)
-subs(f,0,0)
+</pre><img vspace="5" hspace="5" src="PracticaTres_14.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_15.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_16.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_17.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_18.png" alt=""> <img vspace="5" hspace="5" src="PracticaTres_19.png" alt=""> <h2>Ejercicio 5<a name="5"></a></h2><p>5. Ejecuta las instrucciones de c&oacute;digo simb&oacute;lico para encontrar la tranformada de Fourier de <img src="PracticaTres_eq02520246179772945396.png" alt="$f(t)=e^{-at}u(t)$"></p><pre class="codeinput">syms <span class="string">a</span> <span class="string">t</span> <span class="string">w</span> <span class="string">j</span> <span class="comment">%Declaracion de variables simbolicas</span>
+f = int(exp(-t.*(a+1j.*w)), t, 0, inf) <span class="comment">%Integral</span>
+subs(f,0,0) <span class="comment">% Substitucion</span>
 </pre><pre class="codeoutput"> 
 f =
  
@@ -326,18 +337,28 @@ a = 1;
 plot(w, fun1(w,a)); %Grafica
 %% Ejercicio 2
 % 2. Para la función $f(t)=e^{-2t}u(t)$ reporta la gráfica de $f(t)$ de $[-2,5]$, $F(w)$ en $[-10,10]$ el espectro de magnitud y el espectro de fase en $[-10,10]$ (puedes consultar con help la descripción de abs y angle)
-t = -2:0.01:5;
-u = @(t) (1).*(t>=0);
+t = -2:0.01:5;  %Intervalos
+u = @(t) (1).*(t>=0);   %Funciones
 fun2 = @(t) exp(-2.*t).*u(t);
 
+w = -10:1:10; %Intevalo y funciones
+fw = @(w) 1./(2+1i.*w); %Funcion tranformada
 figure
+plot3(w, fw(w), fw(w), 'LineWidth', 2)
+xlabel('t');
+ylabel('Re');
+zlabel('Im');
+title('F(w)');
+grid;
+
+figure  %Grafica
 plot(t, fun2(t));
 xlabel('t')
 ylabel('f(x)')
 title('Funcion Original')
 grid;
 
-w = -10:1:10;
+w = -10:1:10; %Intevalo y funciones
 fw = @(w) (1./(1i.*w+2));
 
 figure 
@@ -469,10 +490,10 @@ E_g = integral(g_squared, 0,100);
 %% Ejercicio 4
 % 4. Resuelve el problema 1.2.1 usando las herramientas del paso anterior.
 % 
-a = @(t) 0.*(t<=6);
+a = @(t) 0.*(t<=6); %Funciones
 b = @(t) ((t/6)-2).*(6<=t & t<=15);
 c = @(t) ((-t/18)+4/3).*(15<t & t<24);
-
+% Graficas de subplot
 figure
 subplot(3, 2, 1)
 t = (-5:.01:30);
@@ -519,7 +540,7 @@ ylabel('x(t/2)')
 title('d')
 grid;
 
-
+%Graficas independientes
 figure
 t = (-5:.01:30);
 plot(t, (a(t)+b(t)+c(t)))
@@ -568,9 +589,9 @@ grid;
 %% Ejercicio 5
 % 5. Ejecuta las instrucciones de código simbólico para encontrar la tranformada de Fourier de $f(t)=e^{-at}u(t)$
 %
-syms a t w j
-f = int(exp(-t.*(a+1j.*w)), t, 0, inf)
-subs(f,0,0)
+syms a t w j %Declaracion de variables simbolicas
+f = int(exp(-t.*(a+1j.*w)), t, 0, inf) %Integral
+subs(f,0,0) % Substitucion
 
 
 

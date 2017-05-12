@@ -1,0 +1,280 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pr&aacute;ctica 4: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales en tiempo continuo</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-05-11"><meta name="DC.source" content="Prac4SySMayo2017.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 4: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales en tiempo continuo</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Simulaci&oacute;n n&uacute;merica de convoluci&oacute;n</a></li><li><a href="#6">Correlaci&oacute;n n&uacute;merica</a></li><li><a href="#8">Entregables</a></li></ul></div><h2>Simulaci&oacute;n n&uacute;merica de convoluci&oacute;n<a name="1"></a></h2><p>El siguiente c&oacute;digo es una modificaci&oacute;n del que se encuentra en Lathi (C&oacute;digo del cap&iacute;tulo 2, M2.4 p&aacute;g 161), ejemplo de convoluciones continuas. Para la implementaci&oacute;n n&uacute;merica es importante tener encuenta la duraci&oacute;n de cada se&ntilde;al, recuerde que es imposible hacer simulaciones n&uacute;mericas que involucren cantidades infinitas. Si una se&ntilde;al tiene duraci&oacute;n <img src="Prac4SySMayo2017_eq11780850217377245873.png" alt="$T_1$"> y otra se&ntilde;al <img src="Prac4SySMayo2017_eq14319407345469525172.png" alt="$T_2$"> la convoluci&oacute;n tendr&aacute; duraci&oacute;n <img src="Prac4SySMayo2017_eq09278466199576068343.png" alt="$T_1+T_2$">.</p><p><img vspace="5" hspace="5" src="duracion.png" alt=""> </p><p>Por ejemplo si queremos realizar la convoluci&oacute;n de las siguientes se&ntilde;ales se&ntilde;ales la se&ntilde;al resultante tendr&aacute; longitud de 3.5.</p><p><img src="Prac4SySMayo2017_eq16347255092192571131.png" alt="$$x(t)=1.5sen(\pi t)(u(t)-u(t-1))$$"></p><p><img src="Prac4SySMayo2017_eq04766104207928358112.png" alt="$$h(t)=1.5(u(t)-u(t-1))-(u(t-2)-u(t-2.5))$$"></p><p><img src="Prac4SySMayo2017_eq09169824480831122773.png" alt="$$x(t)*h(t)=\frac{1.5^2}{\pi}(1-cos(\pi t)),\;0\leq t \leq 1$$"></p><p><img src="Prac4SySMayo2017_eq08067888866629269197.png" alt="$$x(t)*h(t)=\frac{1.5^2}{\pi}(1-cos(\pi t)),\;1\leq t \leq 2$$"></p><p><img src="Prac4SySMayo2017_eq07109299172609245126.png" alt="$$x(t)*h(t)=\frac{1.5}{\pi}(cos(\pi t)-1),\;2\leq t \leq 2.5$$"></p><p><img src="Prac4SySMayo2017_eq11255474462056614291.png" alt="$$x(t)*h(t)=\frac{1.5}{\pi}(cos(\pi t)-sen(\pi t)),\;2.5\leq t \leq 3$$"></p><p><img src="Prac4SySMayo2017_eq03230195178417292268.png" alt="$$x(t)*h(t)=\frac{-1.5}{\pi}(1+sen(\pi t)),\;3\leq t \leq 3.5$$"></p><p><img src="Prac4SySMayo2017_eq10500056278602715510.png" alt="$x(t)*h(t)=0$"> en otro caso.</p><pre class="codeinput">t1=0:0.01:1;
+t2=1:0.01:2;
+t3=2:0.01:2.5;
+t4=2.5:0.01:3;
+t5=3:0.01:3.5;
+figure
+plot(t1,(1.5^2/pi)*(1-cos(pi*t1)))
+hold <span class="string">on</span>
+plot(t2,(1.5^2/pi)*(1-cos(pi*t2)))
+plot(t3,(1.5/pi)*(cos(pi*t3)-1))
+plot(t4,(1.5/pi)*(cos(pi*t4)-sin(pi*t4)))
+plot(t5, (-1.5/pi)*(1+sin(pi*t5)))
+grid <span class="string">on</span>
+</pre><img vspace="5" hspace="5" src="Prac4SySMayo2017_01.png" alt=""> <pre class="language-matlab"><span class="keyword">function</span> convconm(x,h)
+figure (1) <span class="comment">% Se crea una figura para hacer las gr&aacute;ficas</span>
+dtau = 0.005; <span class="comment">% Base de los rectangulos para realizar la integral</span>
+tau = -1:dtau:4; <span class="comment">% Intervalo de visualizaci&oacute;n del resultado</span>
+ti = 0; <span class="comment">% Indice para el vector de resultados</span>
+tvec = -.25:.1:3.75; <span class="comment">% traslaciones de t, cuantas integrales se calulan</span>
+y = NaN*zeros(1, length (tvec)); <span class="comment">% Resultados de acuerdo a cuantos t</span>
+<span class="keyword">for</span> t = tvec, <span class="comment">% Cantidad de traslaciones</span>
+    ti = ti+1; <span class="comment">% Indice para guardar el resultado (indice del tiempo)</span>
+    xh = x(t-tau).*h(tau); <span class="comment">% resultado de la multiplicaci&oacute;n</span>
+    lxh = length(xh); <span class="comment">% longitud del resultado</span>
+    y(ti) = sum(xh.*dtau); <span class="comment">% Base por altura, aproximaci&oacute;n de la integral</span>
+    subplot (2,1,1), <span class="comment">% gr&aacute;fica de 2 x 1 (primera)</span>
+    plot(tau, h(tau), <span class="string">'r-'</span>, tau, x(t-tau), <span class="string">'g--'</span>, t, 0, <span class="string">'ob'</span>); <span class="comment">%graficas</span>
+    axis ([tau(1) tau(end) -2.0 2.5]); <span class="comment">% l&iacute;mites de los ejes</span>
+    patch([tau(1:end-1); tau(1:end-1); tau(2:end); tau(2:end)],<span class="keyword">...</span>
+    [zeros(1,lxh-1);xh(1:end-1);xh(2:end);zeros(1,lxh-1)],<span class="keyword">...</span>
+    [.8 .8 .8], <span class="string">'edgecolor'</span>, <span class="string">'none'</span>);
+    xlabel(<span class="string">'\tau'</span>); <span class="comment">% Texto del eje X</span>
+    legend(<span class="string">'h(\tau)'</span>, <span class="string">'x(t-\tau)'</span>,<span class="string">'t'</span>,<span class="string">'h(\tau)x(t-\tau)'</span>)<span class="comment">% Caja de Texto</span>
+    subplot (2, 1, 2)  <span class="comment">% gr&aacute;fica de 2 x 1 (segunda)</span>
+    plot (tvec, y, <span class="string">'k'</span>, tvec (ti), y(ti), <span class="string">'ok'</span>);
+    xlabel (<span class="string">'t'</span>);
+    ylabel (<span class="string">'y(t) = \int h(\tau)x(t-\tau) d\tau'</span>);
+    axis ([tau(1) tau(end) -1.0 2.0]); <span class="comment">% l&iacute;mites del eje</span>
+    grid; <span class="comment">% malla</span>
+    drawnow; <span class="comment">% efecto de movimiento continuo</span>
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p>Si ejecutamos las sigueintes instrucciones en el Command Window y el directorio de trabajo es el mismo donde se encuentra la funci&oacute;n <i>convconm</i> tendr&eacute;mos el siguiente resultado</p><pre class="codeinput">x = inline(<span class="string">'1.5*sin(pi*t).*(t&gt;=0 &amp; t&lt;1)'</span>);
+h = inline(<span class="string">'1.5*(t&gt;=0&amp;t&lt;1.0) - (t&gt;=2&amp;t&lt;2.5)'</span>);
+convconm(x,h)
+</pre><pre class="codeoutput error">Undefined function 'convconm' for input arguments of type 'inline'.
+
+Error in Prac4SySMayo2017 (line 87)
+convconm(x,h)
+</pre><p>El cual puede compararse con la gr&aacute;fica del resultado an&aacute;litico y observar que la soluci&oacute;n n&uacute;merica es una buena aproximaci&oacute;n de la exacta.</p><h2>Correlaci&oacute;n n&uacute;merica<a name="6"></a></h2><p>Una manera de abordar este problema es recordando una equivalencia de la correlaci&oacute;n</p><p><img src="Prac4SySMayo2017_eq03660967546680735704.png" alt="$$r_{fg}(t)=f(t)*g(-t)$$"></p><p>Entonces por ejemplo si se quisiera realizar la correlaci&oacute;n de las se&ntilde;ales</p><p><img src="Prac4SySMayo2017_eq12295607967705056527.png" alt="$$g(t)=u(t+0.25)-u(t)$$"></p><p><img src="Prac4SySMayo2017_eq00107529108949416216.png" alt="$$f(t)=u(t)-u(t-2)$$"></p><p>El c&oacute;digo de convoluci&oacute;n podr&iacute;a ocuparse de la siguiente manera</p><pre class="codeinput">g = inline(<span class="string">'(t&gt;=0 &amp; t&lt;0.25)'</span>);
+f = inline(<span class="string">'(t&gt;=0&amp;t&lt;2)'</span>);
+convconm(g,f)
+</pre><h2>Entregables<a name="8"></a></h2><p>Se revisa una publicaci&oacute;n (html) de la pr&aacute;ctica</p><div><ol><li>(10 puntos) Este punto es clave para que se facilite tu trabajo, aunque podr&aacute;s realizar el resto de los entregables a&uacute;n cuando este punto no lo realices. Tienes que agregar a la funci&oacute;n <i>convconm</i> los p&aacute;rametros necesarios de entrada para que las convoluciones se muestren de manera correcta en su intervalo de definici&oacute;n, es decir, la programaci&oacute;n actual solo muestra una buena visualizaci&oacute;n de la simulaci&oacute;n cuando las funciones est&aacute;n definidas en intervalos parecidos al ejemplo mostrado, tendr&aacute;s que hacer cambios para que la funci&oacute;n tenga un uso m&aacute;s general, esto reducira el trabajo de los sigueintes puntos a solo llamadas de esta modificaci&oacute;n, de lo contrario tendr&iacute;as que entregar varias modificaciones al ejemplo comentado</li><li>(25 puntos) Realiza la convoluci&oacute;n n&uacute;merica indicada en el siguiente, <a href="https://www.dropbox.com/s/wrs6j9574tajz0l/PR03SySfeb2017.pdf?dl=0">enlace</a> compara con el resultado analitico de este PR.</li><li>(25 puntos) Realiza la convoluci&oacute;n n&uacute;merica indicada en el ejercicio 1 del siguiente, <a href="https://www.dropbox.com/s/czv0bgp4u4su84t/Unidad1marzo2012RAFAELMTZ.pdf?dl=0">enlace</a> compara con el resultado analitico de este PR.</li><li>(10 puntos) Realiza la correlaci&oacute;n n&uacute;merica indicada en el ejercicio k) del siguiente, <a href="https://www.dropbox.com/s/72emqjn3zetbt4z/PR06SySMar2017.pdf?dl=0">enlace</a> compara con el resultado analitico de este PR.</li><li>(10 puntos) Realiza la correlaci&oacute;n n&uacute;merica indicada en el ejercicio l) del siguiente <a href="https://www.dropbox.com/s/72emqjn3zetbt4z/PR06SySMar2017.pdf?dl=0">enlace</a> compara con el resultado analitico de este PR.</li><li>(10 puntos) Realiza la correlaci&oacute;n n&uacute;merica indicada en el ejercicio m) del siguiente <a href="https://www.dropbox.com/s/72emqjn3zetbt4z/PR06SySMar2017.pdf?dl=0">enlace</a> compara con el resultado analitico de este PR.</li><li>(10 puntos) Realiza la correlaci&oacute;n n&uacute;merica indicada en el ejercicio n) del siguiente <a href="https://www.dropbox.com/s/72emqjn3zetbt4z/PR06SySMar2017.pdf?dl=0">enlace</a> compara con el resultado analitico de este PR.</li></ol></div><p>El c&oacute;digo de esta publicaci&oacute;n lo puedes encontrar en el siguiente <a href="https://www.dropbox.com/s/78znj0ed6n9sy30/Prac4SySMayo2017.m?dl=0">enlace</a></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Práctica 4: Convolución y Correlación de señales en tiempo continuo
+%
+%% Simulación númerica de convolución
+%
+% El siguiente código es una modificación del que se encuentra en Lathi 
+% (Código del capítulo 2, M2.4 pág 161), ejemplo de convoluciones 
+% continuas. Para la implementación númerica es importante tener encuenta 
+% la duración de cada señal,
+% recuerde que es imposible hacer simulaciones númericas que involucren
+% cantidades infinitas. Si una señal tiene duración $T_1$ y otra señal 
+% $T_2$ la convolución tendrá duración $T_1+T_2$.   
+%  
+% <<duracion.png>>
+% 
+%%
+% Por ejemplo si queremos realizar la convolución de las siguientes señales
+% señales la señal resultante tendrá longitud de 3.5.
+% 
+% $$x(t)=1.5sen(\pi t)(u(t)-u(t-1))$$
+% 
+% 
+% $$h(t)=1.5(u(t)-u(t-1))-(u(t-2)-u(t-2.5))$$
+% 
+% 
+% $$x(t)*h(t)=\frac{1.5^2}{\pi}(1-cos(\pi t)),\;0\leq t \leq 1$$
+% 
+% $$x(t)*h(t)=\frac{1.5^2}{\pi}(1-cos(\pi t)),\;1\leq t \leq 2$$
+%
+% $$x(t)*h(t)=\frac{1.5}{\pi}(cos(\pi t)-1),\;2\leq t \leq 2.5$$
+%
+% $$x(t)*h(t)=\frac{1.5}{\pi}(cos(\pi t)-sen(\pi t)),\;2.5\leq t \leq 3$$
+%
+% $$x(t)*h(t)=\frac{-1.5}{\pi}(1+sen(\pi t)),\;3\leq t \leq 3.5$$
+%
+% $x(t)*h(t)=0$ en otro caso. 
+%
+t1=0:0.01:1;
+t2=1:0.01:2;
+t3=2:0.01:2.5;
+t4=2.5:0.01:3;
+t5=3:0.01:3.5;
+figure
+plot(t1,(1.5^2/pi)*(1-cos(pi*t1)))
+hold on
+plot(t2,(1.5^2/pi)*(1-cos(pi*t2)))
+plot(t3,(1.5/pi)*(cos(pi*t3)-1))
+plot(t4,(1.5/pi)*(cos(pi*t4)-sin(pi*t4)))
+plot(t5, (-1.5/pi)*(1+sin(pi*t5)))
+grid on
+%%
+%   function convconm(x,h)
+%   figure (1) % Se crea una figura para hacer las gráficas
+%   dtau = 0.005; % Base de los rectangulos para realizar la integral 
+%   tau = -1:dtau:4; % Intervalo de visualización del resultado
+%   ti = 0; % Indice para el vector de resultados
+%   tvec = -.25:.1:3.75; % traslaciones de t, cuantas integrales se calulan  
+%   y = NaN*zeros(1, length (tvec)); % Resultados de acuerdo a cuantos t
+%   for t = tvec, % Cantidad de traslaciones
+%       ti = ti+1; % Indice para guardar el resultado (indice del tiempo)
+%       xh = x(t-tau).*h(tau); % resultado de la multiplicación 
+%       lxh = length(xh); % longitud del resultado
+%       y(ti) = sum(xh.*dtau); % Base por altura, aproximación de la integral
+%       subplot (2,1,1), % gráfica de 2 x 1 (primera)
+%       plot(tau, h(tau), 'r-', tau, x(t-tau), 'gREPLACE_WITH_DASH_DASH', t, 0, 'ob'); %graficas 
+%       axis ([tau(1) tau(end) -2.0 2.5]); % límites de los ejes
+%       patch([tau(1:end-1); tau(1:end-1); tau(2:end); tau(2:end)],...
+%       [zeros(1,lxh-1);xh(1:end-1);xh(2:end);zeros(1,lxh-1)],...
+%       [.8 .8 .8], 'edgecolor', 'none');
+%       xlabel('\tau'); % Texto del eje X
+%       legend('h(\tau)', 'x(t-\tau)','t','h(\tau)x(t-\tau)')% Caja de Texto  
+%       subplot (2, 1, 2)  % gráfica de 2 x 1 (segunda)
+%       plot (tvec, y, 'k', tvec (ti), y(ti), 'ok');
+%       xlabel ('t'); 
+%       ylabel ('y(t) = \int h(\tau)x(t-\tau) d\tau');
+%       axis ([tau(1) tau(end) -1.0 2.0]); % límites del eje
+%       grid; % malla
+%       drawnow; % efecto de movimiento continuo
+%   end
+%   end
+%%
+% Si ejecutamos las sigueintes instrucciones en el Command Window y el
+% directorio de trabajo es el mismo donde se encuentra la función _convconm_
+% tendrémos el siguiente resultado
+% 
+x = inline('1.5*sin(pi*t).*(t>=0 & t<1)');
+h = inline('1.5*(t>=0&t<1.0) - (t>=2&t<2.5)');
+convconm(x,h)
+%% 
+% El cual puede compararse con la gráfica del resultado análitico y
+% observar que la solución númerica es una buena aproximación de la exacta. 
+% 
+
+%% Correlación númerica 
+% Una manera de abordar este problema es recordando una equivalencia de la
+% correlación 
+%%
+% 
+% $$r_{fg}(t)=f(t)*g(-t)$$
+% 
+% Entonces por ejemplo si se quisiera realizar la correlación de las 
+% señales
+%
+% $$g(t)=u(t+0.25)-u(t)$$
+% 
+% 
+% $$f(t)=u(t)-u(t-2)$$
+%
+% El código de convolución podría ocuparse de la siguiente manera 
+g = inline('(t>=0 & t<0.25)');
+f = inline('(t>=0&t<2)');
+convconm(g,f)
+%% Entregables
+% Se revisa una publicación (html) de la práctica
+%
+% # (10 puntos) Este punto es clave para que se facilite tu trabajo, aunque 
+% podrás realizar el resto de los entregables aún cuando este punto no lo 
+% realices. Tienes que agregar a la función _convconm_ los párametros
+% necesarios de entrada para que las convoluciones se muestren de manera
+% correcta en su intervalo de definición, es decir, la programación actual
+% solo muestra una buena visualización de la simulación cuando las 
+% funciones están definidas en intervalos parecidos al ejemplo mostrado, 
+% tendrás que hacer cambios para que la función tenga un uso más general, 
+% esto reducira el trabajo de los sigueintes puntos a solo llamadas de esta
+% modificación, de lo contrario tendrías que entregar varias modificaciones
+% al ejemplo comentado   
+% # (25 puntos) Realiza la convolución númerica indicada en el  
+% siguiente, 
+% <https://www.dropbox.com/s/wrs6j9574tajz0l/PR03SySfeb2017.pdf?dl=0 enlace>
+% compara con el resultado analitico de este PR.
+% # (25 puntos) Realiza la convolución númerica indicada en el ejercicio 1 del  
+% siguiente,
+% <https://www.dropbox.com/s/czv0bgp4u4su84t/Unidad1marzo2012RAFAELMTZ.pdf?dl=0 enlace>
+% compara con el resultado analitico de este PR.
+% # (10 puntos) Realiza la correlación númerica indicada en el ejercicio k) del 
+% siguiente, 
+% <https://www.dropbox.com/s/72emqjn3zetbt4z/PR06SySMar2017.pdf?dl=0 enlace>
+% compara con el resultado analitico de este PR.
+% # (10 puntos) Realiza la correlación númerica indicada en el ejercicio l) del 
+% siguiente
+% <https://www.dropbox.com/s/72emqjn3zetbt4z/PR06SySMar2017.pdf?dl=0 enlace>
+% compara con el resultado analitico de este PR.
+% # (10 puntos) Realiza la correlación númerica indicada en el ejercicio m) del 
+% siguiente
+% <https://www.dropbox.com/s/72emqjn3zetbt4z/PR06SySMar2017.pdf?dl=0 enlace>
+% compara con el resultado analitico de este PR.
+% # (10 puntos) Realiza la correlación númerica indicada en el ejercicio n) del 
+% siguiente
+% <https://www.dropbox.com/s/72emqjn3zetbt4z/PR06SySMar2017.pdf?dl=0 enlace>
+% compara con el resultado analitico de este PR.
+
+
+
+
+%%
+% El código de esta publicación lo puedes encontrar en el siguiente 
+% <https://www.dropbox.com/s/78znj0ed6n9sy30/Prac4SySMayo2017.m?dl=0 enlace>
+##### SOURCE END #####
+--></body></html>

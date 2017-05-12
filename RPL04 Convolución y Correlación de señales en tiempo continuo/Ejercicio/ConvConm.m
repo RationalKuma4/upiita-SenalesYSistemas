@@ -1,9 +1,15 @@
-function [] = ConvConm( x, h )
+% Parametros de la funcion
+%   x -> Funcion que se movera
+%   h -> Funcion que se dejara fija
+%   tm -> Valor minimo de tau para la visualizacion
+%   tM -> Valor maximo de tau para la visualizacion
+%   descFunc -> Descripcion de funcion
+function [] = ConvConm( x, h, tm, tM )
     figure (1) % Se crea una figura para hacer las gráficas
     dtau = 0.005; % Base de los rectangulos para realizar la integral
-    tau = -1:dtau:4; % Intervalo de visualización del resultado
+    tau = tm:dtau:tM; % Intervalo de visualización del resultado
     ti = 0; % Indice para el vector de resultados
-    tvec = -.25:.1:3.75; % traslaciones de t, cuantas integrales se calulan
+    tvec = tm:.1:tM; % traslaciones de t, cuantas integrales se calulan
     y = NaN*zeros(1, length (tvec)); % Resultados de acuerdo a cuantos t
     for t = tvec, % Cantidad de traslaciones
         ti = ti+1; % Indice para guardar el resultado (indice del tiempo)

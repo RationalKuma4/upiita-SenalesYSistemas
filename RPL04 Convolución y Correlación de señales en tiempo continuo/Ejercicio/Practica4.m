@@ -1,18 +1,19 @@
 %% Práctica 4: Convolución y Correlación de señales en tiempo continuo
 % *Alvarado Balbuena Jorge Anselmo*
 %% Problema 1
-%   Parametros
-%   x -> Funcion que se movera.
-%   h -> Funcion que se dejara fija.
-%   tm -> Valor minimo de tau para la visualización.
-%   tM -> Valor maximo de tau para la visualización.
-%
-%   function [] = ConvConm( x, h, tm, tM )
+%   Parametros 
+%   x -> Funcion que se movera
+%   h -> Funcion que se dejara fija
+%   tm -> Valor minimo de tau para la visualizacion
+%   tM -> Valor maximo de tau para la visualizacion
+%   ym -> Valor minimo 
+%   yM -> Valor maximo 
+%   function [] = ConvConm( x, h, tm, tM, ym, yM )
 %       figure (1) % Se crea una figura para hacer las gráficas
 %       dtau = 0.005; % Base de los rectangulos para realizar la integral
-%       tau = tm:dtau:tM; % Aqui utlizamos loa parametros de visualizacion
+%       tau = tm:dtau:tM; % Intervalo de visualización del resultado
 %       ti = 0; % Indice para el vector de resultados
-%       tvec = -.25:.1:3.75; % traslaciones de t, cuantas integrales se calulan
+%       tvec = tm:.1:tM; % traslaciones de t, cuantas integrales se calulan
 %       y = NaN*zeros(1, length (tvec)); % Resultados de acuerdo a cuantos t
 %       for t = tvec, % Cantidad de traslaciones
 %           ti = ti+1; % Indice para guardar el resultado (indice del tiempo)
@@ -31,7 +32,7 @@
 %           plot (tvec, y, 'k', tvec (ti), y(ti), 'ok');
 %           xlabel ('t');
 %           ylabel ('y(t) = \int h(\tau)x(t-\tau) d\tau');
-%           axis ([tau(1) tau(end) -1.0 2.0]); % límites del eje
+%           axis ([tau(1) tau(end) ym yM]); % límites del eje
 %           grid; % malla
 %           drawnow; % efecto de movimiento continuo
 %       end
@@ -45,7 +46,7 @@
 %t = -3:.01:3;
 h = @(t) (t<0.5 & t>-0.5);
 x = @(t) (t<0.5 & t>-0.5);
-ConvConm(h, x, -2, 2);
+ConvConm(h, x, -2, 2, -2, 2);
 %% Problema 3
 %   Convolución
 %
@@ -55,7 +56,7 @@ ConvConm(h, x, -2, 2);
 %t = -1:.01:3;
 f = @(t) (exp(-t)).*(t>=0 & t<=1);
 g = @(t) (t).*(t>=-1 & t<=1);
-ConvConm(g, f, -2, 3);
+ConvConm(g, f, -2, 3, -3, 3);
 %% Problema 4
 %   Autocorrelación
 %
@@ -64,15 +65,15 @@ ConvConm(g, f, -2, 3);
 %t = -5:.01:5;
 k = @(t) (t>=0)-2.*(t>2)+(t>4);
 ki = @(t) (-t>=0)-2.*(-t>2)+(-t>4);
-ConvConm(ki, k, -3, 8);
+ConvConm(ki, k, -3, 8, -10, 10);
 %% Problema 5
 % 
 l = @(t) (t>=0)-2.*(t>3)+(t>4);
 li = @(t) (-t>=0)-2.*(-t>3)+(-t>4);
-ConvConm(li, l, -3, 8);
+ConvConm(li, l, -3, 8, -10, 10);
 %% Problema 6
 %
-ConvConm(li, k, -3, 8);
+ConvConm(li, k, -3, 8, -10, 10);
 %% Problema 7
 %
-ConvConm(ki, l, -3, 8);
+ConvConm(ki, l, -3, 8, -10, 10);

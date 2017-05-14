@@ -3,8 +3,9 @@
 %   h -> Funcion que se dejara fija
 %   tm -> Valor minimo de tau para la visualizacion
 %   tM -> Valor maximo de tau para la visualizacion
-%   descFunc -> Descripcion de funcion
-function [] = ConvConm( x, h, tm, tM )
+%   ym-> Valor minimo 
+%   yM-> Valor maximo 
+function [] = ConvConm( x, h, tm, tM, ym, yM )
     figure (1) % Se crea una figura para hacer las gráficas
     dtau = 0.005; % Base de los rectangulos para realizar la integral
     tau = tm:dtau:tM; % Intervalo de visualización del resultado
@@ -28,7 +29,7 @@ function [] = ConvConm( x, h, tm, tM )
         plot (tvec, y, 'k', tvec (ti), y(ti), 'ok');
         xlabel ('t');
         ylabel ('y(t) = \int h(\tau)x(t-\tau) d\tau');
-        axis ([tau(1) tau(end) -1.0 2.0]); % límites del eje
+        axis ([tau(1) tau(end) ym yM]); % límites del eje
         grid; % malla
         drawnow; % efecto de movimiento continuo
     end

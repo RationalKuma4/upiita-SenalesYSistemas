@@ -56,7 +56,7 @@ ConvConm(h, x, -2, 2, -2, 2);
 %t = -1:.01:3;
 f = @(t) (exp(-t)).*(t>=0 & t<=1);
 g = @(t) (t).*(t>=-1 & t<=1);
-ConvConm(g, f, -2, 3, -3, 3);
+ConvConm(g, f, -2, 3, -1, 1);
 %% Problema 4
 %   Autocorrelación
 %
@@ -65,15 +65,15 @@ ConvConm(g, f, -2, 3, -3, 3);
 %t = -5:.01:5;
 k = @(t) (t>=0)-2.*(t>2)+(t>4);
 ki = @(t) (-t>=0)-2.*(-t>2)+(-t>4);
-ConvConm(ki, k, -3, 8, -10, 10);
+ConvConm(ki, k, -3, 5, -4, 5);
 %% Problema 5
 % 
 l = @(t) (t>=0)-2.*(t>3)+(t>4);
 li = @(t) (-t>=0)-2.*(-t>3)+(-t>4);
-ConvConm(li, l, -3, 8, -10, 10);
+ConvConm(li, l, -3, 5, -3, 5);
 %% Problema 6
 %
-ConvConm(li, k, -3, 8, -10, 10);
+ConvConm(li, k, -3, 5, -3, 5);
 %% Problema 7
 %
-ConvConm(ki, l, -3, 8, -10, 10);
+ConvConm(ki, l, -3, 5, -3, 4);

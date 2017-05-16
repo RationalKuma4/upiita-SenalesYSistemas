@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Pr&aacute;ctica 4: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales en tiempo continuo</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-05-13"><meta name="DC.source" content="Practica4.m"><style type="text/css">
+      --><title>Pr&aacute;ctica 4: Convoluci&oacute;n y Correlaci&oacute;n de se&ntilde;ales en tiempo continuo</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-05-15"><meta name="DC.source" content="Practica4.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -71,8 +71,8 @@ x <span class="string">-&gt;</span> <span class="string">Funcion</span> <span cl
 h <span class="string">-&gt;</span> <span class="string">Funcion</span> <span class="string">que</span> <span class="string">se</span> <span class="string">dejara</span> <span class="string">fija</span>
 tm <span class="string">-&gt;</span> <span class="string">Valor</span> <span class="string">minimo</span> <span class="string">de</span> <span class="string">tau</span> <span class="string">para</span> <span class="string">la</span> <span class="string">visualizacion</span>
 tM <span class="string">-&gt;</span> <span class="string">Valor</span> <span class="string">maximo</span> <span class="string">de</span> <span class="string">tau</span> <span class="string">para</span> <span class="string">la</span> <span class="string">visualizacion</span>
-ym-&gt; Valor minimo
-yM-&gt; Valor maximo
+ym <span class="string">-&gt;</span> <span class="string">Valor</span> <span class="string">minimo</span>
+yM <span class="string">-&gt;</span> <span class="string">Valor</span> <span class="string">maximo</span>
 <span class="keyword">function</span> [] = ConvConm( x, h, tm, tM, ym, yM )
     figure (1) <span class="comment">% Se crea una figura para hacer las gr&aacute;ficas</span>
     dtau = 0.005; <span class="comment">% Base de los rectangulos para realizar la integral</span>
@@ -111,17 +111,17 @@ ConvConm(h, x, -2, 2, -2, 2);
 </pre><p><img src="Practica4_eq16362762516362535040.png" alt="$f(t) = e^{-t}$"></p><p><img src="Practica4_eq14360481311710373534.png" alt="$g(t) = t$"></p><pre class="codeinput"><span class="comment">%t = -1:.01:3;</span>
 f = @(t) (exp(-t)).*(t&gt;=0 &amp; t&lt;=1);
 g = @(t) (t).*(t&gt;=-1 &amp; t&lt;=1);
-ConvConm(g, f, -2, 3, -3, 3);
+ConvConm(g, f, -2, 3, -1, 1);
 </pre><img vspace="5" hspace="5" src="Practica4_02.png" alt=""> <h2>Problema 4<a name="4"></a></h2><pre class="language-matlab">Autocorrelaci&oacute;n
 </pre><p><img src="Practica4_eq12154421160986327557.png" alt="$$x_{0}(t) = u(t) - 2u(t-2) + u(t-4)$$"></p><pre class="codeinput"><span class="comment">%t = -5:.01:5;</span>
 k = @(t) (t&gt;=0)-2.*(t&gt;2)+(t&gt;4);
 ki = @(t) (-t&gt;=0)-2.*(-t&gt;2)+(-t&gt;4);
-ConvConm(ki, k, -3, 8, -10, 10);
+ConvConm(ki, k, -3, 5, -4, 5);
 </pre><img vspace="5" hspace="5" src="Practica4_03.png" alt=""> <h2>Problema 5<a name="5"></a></h2><pre class="codeinput">l = @(t) (t&gt;=0)-2.*(t&gt;3)+(t&gt;4);
 li = @(t) (-t&gt;=0)-2.*(-t&gt;3)+(-t&gt;4);
-ConvConm(li, l, -3, 8, -10, 10);
-</pre><img vspace="5" hspace="5" src="Practica4_04.png" alt=""> <h2>Problema 6<a name="6"></a></h2><pre class="codeinput">ConvConm(li, k, -3, 8, -10, 10);
-</pre><img vspace="5" hspace="5" src="Practica4_05.png" alt=""> <h2>Problema 7<a name="7"></a></h2><pre class="codeinput">ConvConm(ki, l, -3, 8, -10, 10);
+ConvConm(li, l, -3, 5, -3, 5);
+</pre><img vspace="5" hspace="5" src="Practica4_04.png" alt=""> <h2>Problema 6<a name="6"></a></h2><pre class="codeinput">ConvConm(li, k, -3, 5, -3, 5);
+</pre><img vspace="5" hspace="5" src="Practica4_05.png" alt=""> <h2>Problema 7<a name="7"></a></h2><pre class="codeinput">ConvConm(ki, l, -3, 5, -3, 4);
 </pre><img vspace="5" hspace="5" src="Practica4_06.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Práctica 4: Convolución y Correlación de señales en tiempo continuo
@@ -132,8 +132,8 @@ ConvConm(li, l, -3, 8, -10, 10);
 %   h -> Funcion que se dejara fija
 %   tm -> Valor minimo de tau para la visualizacion
 %   tM -> Valor maximo de tau para la visualizacion
-%   ym-> Valor minimo 
-%   yM-> Valor maximo 
+%   ym -> Valor minimo 
+%   yM -> Valor maximo 
 %   function [] = ConvConm( x, h, tm, tM, ym, yM )
 %       figure (1) % Se crea una figura para hacer las gráficas
 %       dtau = 0.005; % Base de los rectangulos para realizar la integral
@@ -182,7 +182,7 @@ ConvConm(h, x, -2, 2, -2, 2);
 %t = -1:.01:3;
 f = @(t) (exp(-t)).*(t>=0 & t<=1);
 g = @(t) (t).*(t>=-1 & t<=1);
-ConvConm(g, f, -2, 3, -3, 3);
+ConvConm(g, f, -2, 3, -1, 1);
 %% Problema 4
 %   Autocorrelación
 %
@@ -191,17 +191,17 @@ ConvConm(g, f, -2, 3, -3, 3);
 %t = -5:.01:5;
 k = @(t) (t>=0)-2.*(t>2)+(t>4);
 ki = @(t) (-t>=0)-2.*(-t>2)+(-t>4);
-ConvConm(ki, k, -3, 8, -10, 10);
+ConvConm(ki, k, -3, 5, -4, 5);
 %% Problema 5
 % 
 l = @(t) (t>=0)-2.*(t>3)+(t>4);
 li = @(t) (-t>=0)-2.*(-t>3)+(-t>4);
-ConvConm(li, l, -3, 8, -10, 10);
+ConvConm(li, l, -3, 5, -3, 5);
 %% Problema 6
 %
-ConvConm(li, k, -3, 8, -10, 10);
+ConvConm(li, k, -3, 5, -3, 5);
 %% Problema 7
 %
-ConvConm(ki, l, -3, 8, -10, 10);
+ConvConm(ki, l, -3, 5, -3, 4);
 ##### SOURCE END #####
 --></body></html>

@@ -4,19 +4,30 @@
 %
 % $f(t)=e^{t/2}$
 %
-d0=0.504;
-dn=inline('0.504/(1+4*n*j)','n');
 t0=0;
 tf=pi;
-f=inline('exp(-t./2)','t');
+a0=0.504;
+an=@(n) 0.504.*(2./(1+16.*n.^2));
+bn=@(n) 0.504.*(8.*n./(1+16.*n.^2));
+f=@(t) exp(-t./2);
 armo=4;
-a=-7;
-b=7;
-sfc(t0,tf,dn,d0,f,armo,a,b)
+a=-8;
+b=9;
+SerieFourierTrigonometrica(t0, tf, a0, an, bn, f, armo, a, b);
 %% Ejemplo 6.2. Con serie y espectro exponencial y A=3
 %
 % $f(t)=t$
 %
+%syms A
+t0=0;
+tf=2;
+a0=0;
+an=@(n) 0;
+bn=@(n) (8.*A./(n.*pi).^2).*sin((n.*pi)./2);
+f=@(t) exp(-t./2);
+armo=4;
+a=-8;
+b=9;
 %% Ejemplo 6.4. Con serie y espectro exponencial
 %
 % $f(t)=1$

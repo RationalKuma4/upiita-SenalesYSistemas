@@ -1,4 +1,4 @@
-function [] = SerieFourierCompleja(t0, tf ,dn ,d0 ,f ,armo ,a ,b)
+function [] = SerieFourierExponencial25(t0, tf ,dn ,d0 ,f ,armo ,a ,b, np)
 % t0 el valor inicial para calcular la serie
 % tf el valor final donde calcular la serie
 % dn función de la fórmula de los dn
@@ -13,8 +13,8 @@ function [] = SerieFourierCompleja(t0, tf ,dn ,d0 ,f ,armo ,a ,b)
         sf=sf+dn(-n)*exp(w0*-n*t*1i)+dn(n)*exp(w0*n*t*1i);
     end
     
-    figure (1)
-    hFig = figure(1);
+    figure (np)
+    hFig = figure(np);
     set(hFig, 'Position', [0 0 900 900])
     subplot(3,2,1)
     plot(t,sf)
@@ -28,7 +28,6 @@ function [] = SerieFourierCompleja(t0, tf ,dn ,d0 ,f ,armo ,a ,b)
     for n=1:armo
         sf=sf+dn(-n)*exp(w0*-n*t1*1i)+dn(n)*exp(w0*n*t1*1i);
     end
-    
     subplot(3,2,2)
     plot(t1,f(t1),'r')
     grid on
@@ -70,8 +69,32 @@ function [] = SerieFourierCompleja(t0, tf ,dn ,d0 ,f ,armo ,a ,b)
     xlabel('\omega','FontWeight','bold','FontSize',16)
     grid on
     
-    subplot(3,2,5) % %
-    stem(w0*nn,angle(absdn)) % %
+    vectorPrimosPositivos = zeros(1,51);
+    vectorPirmosNegativos = zeros(1,51);
+    contaVec = 1;
+    for i = -armo:armo
+        vectorPrimosPositivos(contaVec) = (4*i-3);
+        vectorPirmosNegativos(contaVec) = (4*i-1);
+        contaVec=contaVec+1;
+    end
+    
+    vecAng=zeros(1,length(nn));
+    conta=1;
+    for i = -armo:armo
+        if mod(i,2) == 0
+            vecAng(conta) = 0;
+        elseif mod(i,2) == 1
+            if ismember(i, vectorPrimosPositivos)
+                vecAng(conta) = i;
+            else
+                vecAng(conta) = -i;
+            end
+        end
+        conta=conta+1;
+    end
+    
+    subplot(3,2,5) 
+    stem(w0*nn, vecAng)
     title('Espectro de fase, \angle de D_n ','FontWeight','bold','FontSize',16) % %
     xlabel('\omega','FontWeight','bold','FontSize',16)
     grid on

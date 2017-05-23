@@ -75,40 +75,57 @@ f=@(t) exp(-t./2);
 armo=4;
 a=-8;
 b=9;
-SerieFourierTrigonometrica(t0, tf, a0, an, bn, f, armo, a, b);
-<span class="comment">%</span>
-<span class="comment">%</span>
-</pre><img vspace="5" hspace="5" src="Practica5_01.png" alt=""> <h2>Ejemplo 6.2. Con serie y espectro exponencial y A=3<a name="2"></a></h2><pre class="codeinput">A = 6;
+SerieFourierTrigonometrica(t0, tf, a0, an, bn, f, armo, a, b, 1);
+SerieFourierTrigonometrica(t0, tf, a0, an, bn, f, 15, a, b, 2);
+</pre><img vspace="5" hspace="5" src="Practica5_01.png" alt=""> <img vspace="5" hspace="5" src="Practica5_02.png" alt=""> <h2>Ejemplo 6.2. Con serie y espectro exponencial y A=3<a name="2"></a></h2><pre class="codeinput">A = 3;
 d0=0;
-dn= @(n) (12i.*sin((n.*pi)/(2)))/(n.*pi).^2;
+dn= @(n) (12/(n.*pi).^2);
 t0=-0.5;
 tf=1.5;
-f= @(t) A.*t.*(t&gt;=-0.5 &amp; t&lt;0.5) + A.*(1-t).*(t&gt;=0.5 &amp; t&lt;=1.5);
+f= @(t) 2.*A.*t.*(t&gt;=-0.5 &amp; t&lt;0.5) + 2.*A.*(1-t).*(t&gt;=0.5 &amp; t&lt;=1.5);
 armo=4;
 a=-5;
 b=5;
-SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
-<span class="comment">%</span>
-<span class="comment">%</span>
-</pre><img vspace="5" hspace="5" src="Practica5_02.png" alt=""> <h2>Ejemplo 6.4. Con serie y espectro exponencial<a name="3"></a></h2><pre class="codeinput">d0=0.5;
-dn= @(n) sin((n.*pi)./2)./(n.*pi);
-t0=-0.5;
-tf=1.5;
+SerieFourierExponencial25(t0, tf, dn, d0, f, armo, a, b, 3);
+SerieFourierExponencial25(t0, tf, dn, d0, f, 15, a, b, 4);
+</pre><img vspace="5" hspace="5" src="Practica5_03.png" alt=""> <img vspace="5" hspace="5" src="Practica5_04.png" alt=""> <h2>Ejemplo 6.4. Con serie y espectro exponencial<a name="3"></a></h2><pre class="codeinput">d0=0.5;
+dn= @(n) 1./(n.*pi);
+t0=-pi;
+tf=pi;
 f= @(t) 0.*(t&gt;-pi &amp; t&lt;-pi./2) + 1.*(t&gt;-pi./2 &amp; t&lt;pi./2) + 0.*(t&gt;pi &amp; t&lt;pi./2);
 armo=4;
 a=-5;
 b=5;
-SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
-</pre><img vspace="5" hspace="5" src="Practica5_03.png" alt=""> <h2>Ejercicio 6.5. Con serie y espectro exponencial<a name="4"></a></h2><pre class="codeinput">d0=0;
-dn= @(n) 0.504./(1+4i.*n);
+SerieFourierExponencial25(t0, tf, dn, d0, f, armo, a, b, 5);
+SerieFourierExponencial25(t0, tf, dn, d0, f, 15, a, b, 6);
+</pre><pre class="codeoutput">Warning: Imaginary parts of complex X and/or Y arguments ignored 
+Warning: Imaginary parts of complex X and/or Y arguments ignored 
+Warning: Imaginary parts of complex X and/or Y arguments ignored 
+Warning: Using only the real component of complex data. 
+Warning: Imaginary parts of complex X and/or Y arguments ignored 
+Warning: Imaginary parts of complex X and/or Y arguments ignored 
+Warning: Imaginary parts of complex X and/or Y arguments ignored 
+Warning: Using only the real component of complex data. 
+</pre><img vspace="5" hspace="5" src="Practica5_05.png" alt=""> <img vspace="5" hspace="5" src="Practica5_06.png" alt=""> <h2>Ejercicio 6.5. Con serie y espectro exponencial<a name="4"></a></h2><pre class="codeinput">d0=0.504;
+dn= @(n) 0.504/(1+4*n*1i);
 t0=0;
 tf=pi;
 f=@(t) exp(-t./2);
 armo=4;
-a=-9;
-b=9;
-SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
-</pre><img vspace="5" hspace="5" src="Practica5_04.png" alt=""> <h2>Ejemplo 6.7. Con serie y espectro exponencial y <img src="Practica5_eq04356084194358646376.png" alt="$T_0=3$"> sin incluir la gr&aacute;fica de f, error ni energ&iacute;a del error<a name="5"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+a=-7;
+b=7;
+SerieFourierExponencial25(t0, tf, dn, d0, f, armo, a, b, 7);
+SerieFourierExponencial25(t0, tf, dn, d0, f, 15, a, b, 8);
+</pre><img vspace="5" hspace="5" src="Practica5_07.png" alt=""> <img vspace="5" hspace="5" src="Practica5_08.png" alt=""> <h2>Ejemplo 6.7. Con serie y espectro exponencial y <img src="Practica5_eq04356084194358646376.png" alt="$T_0=3$"> sin incluir la gr&aacute;fica de f, error ni energ&iacute;a del error<a name="5"></a></h2><pre class="codeinput">d0=1/3;
+dn= @(n) 1/3;
+t0=-4;
+tf=4;
+armo=4;
+a=-7;
+b=7;
+SerieFourierExponencialDirac(t0, tf ,dn ,d0 ,armo ,a ,b, 9);
+SerieFourierExponencialDirac(t0, tf ,dn ,d0 ,15 ,a ,b, 10);
+</pre><img vspace="5" hspace="5" src="Practica5_09.png" alt=""> <img vspace="5" hspace="5" src="Practica5_10.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Práctica 5: Series de Fourier
 % Alvarado Balbuena Jorge Anselmo
@@ -125,47 +142,62 @@ f=@(t) exp(-t./2);
 armo=4;
 a=-8;
 b=9;
-SerieFourierTrigonometrica(t0, tf, a0, an, bn, f, armo, a, b);
-%
-%
+SerieFourierTrigonometrica(t0, tf, a0, an, bn, f, armo, a, b, 1);
+SerieFourierTrigonometrica(t0, tf, a0, an, bn, f, 15, a, b, 2);
+
 %% Ejemplo 6.2. Con serie y espectro exponencial y A=3
 %
 %
-A = 6;
+A = 3;
 d0=0;
-dn= @(n) (12i.*sin((n.*pi)/(2)))/(n.*pi).^2;
+dn= @(n) (12/(n.*pi).^2);
 t0=-0.5;
 tf=1.5;
-f= @(t) A.*t.*(t>=-0.5 & t<0.5) + A.*(1-t).*(t>=0.5 & t<=1.5);
+f= @(t) 2.*A.*t.*(t>=-0.5 & t<0.5) + 2.*A.*(1-t).*(t>=0.5 & t<=1.5);
 armo=4;
 a=-5;
 b=5;
-SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
-%
-%
+SerieFourierExponencial25(t0, tf, dn, d0, f, armo, a, b, 3);
+SerieFourierExponencial25(t0, tf, dn, d0, f, 15, a, b, 4);
 %% Ejemplo 6.4. Con serie y espectro exponencial
 %
+%
 d0=0.5;
-dn= @(n) sin((n.*pi)./2)./(n.*pi);
-t0=-0.5;
-tf=1.5;
+dn= @(n) 1./(n.*pi);
+t0=-pi;
+tf=pi;
 f= @(t) 0.*(t>-pi & t<-pi./2) + 1.*(t>-pi./2 & t<pi./2) + 0.*(t>pi & t<pi./2);
 armo=4;
 a=-5;
 b=5;
-SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
+SerieFourierExponencial25(t0, tf, dn, d0, f, armo, a, b, 5);
+SerieFourierExponencial25(t0, tf, dn, d0, f, 15, a, b, 6);
+
 %% Ejercicio 6.5. Con serie y espectro exponencial
 %
-d0=0;
-dn= @(n) 0.504./(1+4i.*n);
+%
+d0=0.504;
+dn= @(n) 0.504/(1+4*n*1i);
 t0=0;
 tf=pi;
 f=@(t) exp(-t./2);
 armo=4;
-a=-9;
-b=9;
-SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
+a=-7;
+b=7;
+SerieFourierExponencial25(t0, tf, dn, d0, f, armo, a, b, 7);
+SerieFourierExponencial25(t0, tf, dn, d0, f, 15, a, b, 8);
 %% Ejemplo 6.7. Con serie y espectro exponencial y $T_0=3$ sin incluir la gráfica de f, error ni energía del error
 %
+%
+d0=1/3;
+dn= @(n) 1/3;
+t0=-4;
+tf=4;
+armo=4;
+a=-7;
+b=7;
+SerieFourierExponencialDirac(t0, tf ,dn ,d0 ,armo ,a ,b, 9);
+SerieFourierExponencialDirac(t0, tf ,dn ,d0 ,15 ,a ,b, 10);
+
 ##### SOURCE END #####
 --></body></html>

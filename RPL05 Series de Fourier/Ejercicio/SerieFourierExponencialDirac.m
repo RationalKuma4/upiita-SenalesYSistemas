@@ -1,4 +1,4 @@
-function [] = SerieFourierCompleja(t0, tf ,dn ,d0 ,f ,armo ,a ,b)
+function [] = SerieFourierExponencialDirac(t0, tf ,dn ,d0 ,armo ,a ,b, np)
 % t0 el valor inicial para calcular la serie
 % tf el valor final donde calcular la serie
 % dn función de la fórmula de los dn
@@ -13,48 +13,16 @@ function [] = SerieFourierCompleja(t0, tf ,dn ,d0 ,f ,armo ,a ,b)
         sf=sf+dn(-n)*exp(w0*-n*t*1i)+dn(n)*exp(w0*n*t*1i);
     end
     
-    figure (1)
-    hFig = figure(1);
+    figure (np)
+    hFig = figure(np);
     set(hFig, 'Position', [0 0 900 900])
-    subplot(3,2,1)
+    subplot(3,1,1)
     plot(t,sf)
     grid on
     legend('Serie de Fourier','Location','Best')
     xlabel('t','FontWeight','bold','FontSize',16)
     
-    sf=d0;
-    t1=t0:0.0001:tf;
-    
-    for n=1:armo
-        sf=sf+dn(-n)*exp(w0*-n*t1*1i)+dn(n)*exp(w0*n*t1*1i);
-    end
-    
-    subplot(3,2,2)
-    plot(t1,f(t1),'r')
-    grid on
-    hold on
-    plot(t1,sf)
-    legend('Función original','Serie de Fourier ','Location','Best')
-    xlabel('t','FontWeight','bold','FontSize',16)
     nn=-armo:armo;
-    axis auto
-    
-    subplot(3,2,4)
-    e=f(t1)-sf;
-    plot(t1,e)
-    title('Error','FontWeight','bold','FontSize',16)
-    xlabel('t','FontWeight','bold','FontSize',16)
-    axis auto
-    grid on
-    
-    subplot(3,2,6)
-    e=f(t1)-sf;
-    area(t1,e.^2)
-    legend('Energia del error','Location','Best')
-    xlabel('t','FontWeight','bold','FontSize',16)
-    axis auto
-    grid on
-    
     absdn=zeros(1,length(nn));
     cont=1;
     for i =-armo:armo
@@ -63,15 +31,16 @@ function [] = SerieFourierCompleja(t0, tf ,dn ,d0 ,f ,armo ,a ,b)
         end
          absdn(cont)=dn(i);
          cont=cont+1;
-     end
-    subplot(3,2,3)
+    end
+    
+    subplot(3,1,2)
     stem(w0*nn,abs(absdn))
     title('Espectro de magnitud D_n ','FontWeight','bold','FontSize',16)
     xlabel('\omega','FontWeight','bold','FontSize',16)
     grid on
     
-    subplot(3,2,5) % %
-    stem(w0*nn,angle(absdn)) % %
+    subplot(3,1,3)
+    stem(w0*nn,angle(absdn))
     title('Espectro de fase, \angle de D_n ','FontWeight','bold','FontSize',16) % %
     xlabel('\omega','FontWeight','bold','FontSize',16)
     grid on

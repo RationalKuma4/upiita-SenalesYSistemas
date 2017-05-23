@@ -1,4 +1,4 @@
-function [] = SerieFourierExponencial(t0, tf ,dn ,d0 ,f ,armo ,a ,b)
+function [] = SerieFourierExponencial(t0, tf ,dn ,d0 ,f ,armo ,a ,b, np)
 % t0 el valor inicial para calcular la serie
 % tf el valor final donde calcular la serie
 % dn función de la fórmula de los dn
@@ -13,8 +13,8 @@ function [] = SerieFourierExponencial(t0, tf ,dn ,d0 ,f ,armo ,a ,b)
         sf=sf+dn(-n)*exp(w0*-n*t*1i)+dn(n)*exp(w0*n*t*1i);
     end
     
-    figure (1)
-    hFig = figure(1);
+    figure (np)
+    hFig = figure(np);
     set(hFig, 'Position', [0 0 900 900])
     subplot(3,2,1)
     plot(t,sf)

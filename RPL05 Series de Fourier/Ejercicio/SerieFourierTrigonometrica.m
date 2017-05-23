@@ -1,4 +1,4 @@
-function [] = SerieFourierTrigonometrica(t0, tf ,a0 ,an ,bn, f, armo, a, b)
+function [] = SerieFourierTrigonometrica(t0, tf ,a0 ,an ,bn, f, armo, a, b, np)
 % t0 el valor inicial para calcular la serie
 % tf el valor final donde calcular la serie
 % a0 coeficiente de a0
@@ -15,10 +15,10 @@ function [] = SerieFourierTrigonometrica(t0, tf ,a0 ,an ,bn, f, armo, a, b)
         sft=sft+an(n).*cos(n.*w0.*t)+bn(n).*sin(n.*w0.*t);
     end
     
-    figure (1)
-    hFig = figure(1);
+    figure (np)
+    hFig = figure(np);
     set(hFig, 'Position', [0 0 900 900])
-    subplot(3,2,1)
+    subplot(4,2,1)
     plot(t,sft)
     grid on
     legend('Serie de Fourier','Location','Best')
@@ -30,7 +30,7 @@ function [] = SerieFourierTrigonometrica(t0, tf ,a0 ,an ,bn, f, armo, a, b)
     for n=1:armo
         sft=sft+an(n).*cos(n.*w0.*t1)+bn(n).*sin(n.*w0.*t1);
     end
-    subplot(3,2,2)
+    subplot(4,2,2)
     plot(t1,f(t1),'r')
     grid on
     hold on
@@ -39,7 +39,7 @@ function [] = SerieFourierTrigonometrica(t0, tf ,a0 ,an ,bn, f, armo, a, b)
     xlabel('t','FontWeight','bold','FontSize',16)
     axis auto
     
-    subplot(3,2,4)
+    subplot(4,2,4)
     e=f(t1)-sft;
     plot(t1,e)
     title('Error','FontWeight','bold','FontSize',16)
@@ -47,7 +47,7 @@ function [] = SerieFourierTrigonometrica(t0, tf ,a0 ,an ,bn, f, armo, a, b)
     axis auto
     grid on
     
-    subplot(3,2,6)
+    subplot(4,2,6)
     e=f(t1)-sft;
     area(t1,e.^2)
     legend('Energia del error','Location','Best')
@@ -58,27 +58,35 @@ function [] = SerieFourierTrigonometrica(t0, tf ,a0 ,an ,bn, f, armo, a, b)
     nn=0:armo;
     wan=zeros(1,length(nn));
     wbn=zeros(1,length(nn));
+    angulos=zeros(1,length(nn));
     cont=1;
     for i =0:armo
         if i==0
             wan(cont)=a0;
             wbn(cont)=a0;
         else
-            wan(cont)=an(i)+bn(i);
+            wan(cont)=an(i);
             wbn(cont)=bn(i);
+            angulos(cont)=-atan(4.*i);
         end
         cont=cont+1;
     end
      
-    subplot(3,2,3)
+    subplot(4,2,3)
     stem(w0*nn,wan)
-    title('Espectro de amplitud','FontWeight','bold','FontSize',16)
+    title('an','FontWeight','bold','FontSize',16)
     xlabel('\omega','FontWeight','bold','FontSize',16)
     grid on
     
-    subplot(3,2,5) % %
-    stem(w0*nn,wbn) % %
-    title('Espectro de fase, \angle de D_n ','FontWeight','bold','FontSize',16) % %
+    subplot(4,2,5) 
+    stem(w0*nn,wbn) 
+    title('bn','FontWeight','bold','FontSize',16) 
+    xlabel('\omega','FontWeight','bold','FontSize',16)
+    grid on
+    
+    subplot(4,2,7) 
+    stem(w0*nn, angulos) 
+    title('bn angulo','FontWeight','bold','FontSize',16) 
     xlabel('\omega','FontWeight','bold','FontSize',16)
     grid on
 end

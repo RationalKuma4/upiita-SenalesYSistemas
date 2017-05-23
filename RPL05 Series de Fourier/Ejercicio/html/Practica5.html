@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Pr&aacute;ctica 5: Series de Fourier</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-05-19"><meta name="DC.source" content="Practica5.m"><style type="text/css">
+      --><title>Pr&aacute;ctica 5: Series de Fourier</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-05-23"><meta name="DC.source" content="Practica5.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,7 +66,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Pr&aacute;ctica 5: Series de Fourier</h1><!--introduction--><p>Alvarado Balbuena Jorge Anselmo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Ejemplo 6.1 Con serie y espectro trigonometrico</a></li><li><a href="#2">Ejemplo 6.2. Con serie y espectro exponencial y A=3</a></li><li><a href="#3">Ejemplo 6.4. Con serie y espectro exponencial</a></li><li><a href="#4">Ejercicio 6.5. Con serie y espectro exponencial</a></li><li><a href="#5">Ejemplo 6.7. Con serie y espectro exponencial y <img src="Practica5_eq04356084194358646376.png" alt="$T_0=3$"> sin incluir la gr&aacute;fica de f, error ni energ&iacute;a del error</a></li></ul></div><h2>Ejemplo 6.1 Con serie y espectro trigonometrico<a name="1"></a></h2><p><img src="Practica5_eq05492105890281113557.png" alt="$f(t)=e^{t/2}$"></p><pre class="codeinput">t0=0;
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 5: Series de Fourier</h1><!--introduction--><p>Alvarado Balbuena Jorge Anselmo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Ejemplo 6.1 Con serie y espectro trigonometrico</a></li><li><a href="#2">Ejemplo 6.2. Con serie y espectro exponencial y A=3</a></li><li><a href="#3">Ejemplo 6.4. Con serie y espectro exponencial</a></li><li><a href="#4">Ejercicio 6.5. Con serie y espectro exponencial</a></li><li><a href="#5">Ejemplo 6.7. Con serie y espectro exponencial y <img src="Practica5_eq04356084194358646376.png" alt="$T_0=3$"> sin incluir la gr&aacute;fica de f, error ni energ&iacute;a del error</a></li></ul></div><h2>Ejemplo 6.1 Con serie y espectro trigonometrico<a name="1"></a></h2><pre class="codeinput">t0=0;
 tf=pi;
 a0=0.504;
 an=@(n) 0.504.*(2./(1+16.*n.^2));
@@ -76,13 +76,45 @@ armo=4;
 a=-8;
 b=9;
 SerieFourierTrigonometrica(t0, tf, a0, an, bn, f, armo, a, b);
-</pre><img vspace="5" hspace="5" src="Practica5_01.png" alt=""> <h2>Ejemplo 6.2. Con serie y espectro exponencial y A=3<a name="2"></a></h2><p><img src="Practica5_eq06045830825048329168.png" alt="$f(t)=t$"></p><h2>Ejemplo 6.4. Con serie y espectro exponencial<a name="3"></a></h2><p><img src="Practica5_eq00603078779442607839.png" alt="$f(t)=1$"></p><h2>Ejercicio 6.5. Con serie y espectro exponencial<a name="4"></a></h2><p><img src="Practica5_eq05492105890281113557.png" alt="$f(t)=e^{t/2}$"></p><h2>Ejemplo 6.7. Con serie y espectro exponencial y <img src="Practica5_eq04356084194358646376.png" alt="$T_0=3$"> sin incluir la gr&aacute;fica de f, error ni energ&iacute;a del error<a name="5"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+<span class="comment">%</span>
+<span class="comment">%</span>
+</pre><img vspace="5" hspace="5" src="Practica5_01.png" alt=""> <h2>Ejemplo 6.2. Con serie y espectro exponencial y A=3<a name="2"></a></h2><pre class="codeinput">A = 6;
+d0=0;
+dn= @(n) (12i.*sin((n.*pi)/(2)))/(n.*pi).^2;
+t0=-0.5;
+tf=1.5;
+f= @(t) A.*t.*(t&gt;=-0.5 &amp; t&lt;0.5) + A.*(1-t).*(t&gt;=0.5 &amp; t&lt;=1.5);
+armo=4;
+a=-5;
+b=5;
+SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
+<span class="comment">%</span>
+<span class="comment">%</span>
+</pre><img vspace="5" hspace="5" src="Practica5_02.png" alt=""> <h2>Ejemplo 6.4. Con serie y espectro exponencial<a name="3"></a></h2><pre class="codeinput">d0=0.5;
+dn= @(n) sin((n.*pi)./2)./(n.*pi);
+t0=-0.5;
+tf=1.5;
+f= @(t) 0.*(t&gt;-pi &amp; t&lt;-pi./2) + 1.*(t&gt;-pi./2 &amp; t&lt;pi./2) + 0.*(t&gt;pi &amp; t&lt;pi./2);
+armo=4;
+a=-5;
+b=5;
+SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
+</pre><img vspace="5" hspace="5" src="Practica5_03.png" alt=""> <h2>Ejercicio 6.5. Con serie y espectro exponencial<a name="4"></a></h2><pre class="codeinput">d0=0;
+dn= @(n) 0.504./(1+4i.*n);
+t0=0;
+tf=pi;
+f=@(t) exp(-t./2);
+armo=4;
+a=-9;
+b=9;
+SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
+</pre><img vspace="5" hspace="5" src="Practica5_04.png" alt=""> <h2>Ejemplo 6.7. Con serie y espectro exponencial y <img src="Practica5_eq04356084194358646376.png" alt="$T_0=3$"> sin incluir la gr&aacute;fica de f, error ni energ&iacute;a del error<a name="5"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Práctica 5: Series de Fourier
 % Alvarado Balbuena Jorge Anselmo
+%
 %% Ejemplo 6.1 Con serie y espectro trigonometrico
 %
-% $f(t)=e^{t/2}$
 %
 t0=0;
 tf=pi;
@@ -94,18 +126,45 @@ armo=4;
 a=-8;
 b=9;
 SerieFourierTrigonometrica(t0, tf, a0, an, bn, f, armo, a, b);
+%
+%
 %% Ejemplo 6.2. Con serie y espectro exponencial y A=3
 %
-% $f(t)=t$
+%
+A = 6;
+d0=0;
+dn= @(n) (12i.*sin((n.*pi)/(2)))/(n.*pi).^2;
+t0=-0.5;
+tf=1.5;
+f= @(t) A.*t.*(t>=-0.5 & t<0.5) + A.*(1-t).*(t>=0.5 & t<=1.5);
+armo=4;
+a=-5;
+b=5;
+SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
+%
 %
 %% Ejemplo 6.4. Con serie y espectro exponencial
 %
-% $f(t)=1$
-%
+d0=0.5;
+dn= @(n) sin((n.*pi)./2)./(n.*pi);
+t0=-0.5;
+tf=1.5;
+f= @(t) 0.*(t>-pi & t<-pi./2) + 1.*(t>-pi./2 & t<pi./2) + 0.*(t>pi & t<pi./2);
+armo=4;
+a=-5;
+b=5;
+SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
 %% Ejercicio 6.5. Con serie y espectro exponencial
 %
-% $f(t)=e^{t/2}$
-%
+d0=0;
+dn= @(n) 0.504./(1+4i.*n);
+t0=0;
+tf=pi;
+f=@(t) exp(-t./2);
+armo=4;
+a=-9;
+b=9;
+SerieFourierExponencial(t0, tf, dn, d0, f, armo, a, b);
 %% Ejemplo 6.7. Con serie y espectro exponencial y $T_0=3$ sin incluir la gráfica de f, error ni energía del error
 %
 ##### SOURCE END #####

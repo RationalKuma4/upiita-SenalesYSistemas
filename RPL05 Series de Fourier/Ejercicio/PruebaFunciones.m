@@ -1,4 +1,4 @@
-t=-1:.01:2;
+% t=-1:.01:2;
 
 % t0=0;
 % tf=pi;
@@ -12,21 +12,23 @@ t=-1:.01:2;
 % SerieFourierTrigonometrica(t0, tf, a0, an, bn, f, armo, a, b)
 % plot(t, f(t));
 
-A = 6;
-t0=-0.5;
-tf=1.5;
-d0=0;
-dn=@(n) ;
-bn=@(n) (8.*A./(n.*pi).^2).*sin((n.*pi)./2);
-f=@(t) A.*t.*(t>=-0.5 & t<0.5);
-f1=@(t) A.*(1-t).*(t>=0.5 & t<=1.5);
-fOri = f + f1;
-
-
-grid on;
-armo=4;
-a=-8;
-b=9;
+% A = 6;
+% t0=-0.5;
+% tf=1.5;
+% d0=0;
+% %dn=@(n) ;
+% bn=@(n) (8.*A./(n.*pi).^2).*sin((n.*pi)./2);
+% % 
+% f= @(t) A.*t.*(t>=-0.5 & t<0.5);
+% f1= @(t) A.*(1-t).*(t>=0.5 & t<=1.5);
+% fori = f(t) + f1(t);
+% plot(t, f(t) + f1(t))
+% 
+% 
+% grid on;
+% armo=4;
+% a=-8;
+% b=9;
 % 
 % f = @(x) [2*sqrt(x).*(0<=x & x<1) + (3-x).*(1<=x & x<=3)];
 % x = linspace(0,3);
@@ -36,3 +38,22 @@ b=9;
 % figure(1)
 % plot(px, pfx)
 % grid
+
+
+% t=-1:.01:2;
+% f= @(t) A.*t.*(t>=-0.5 & t<0.5) + A.*(1-t).*(t>=0.5 & t<=1.5);
+% %f1= @(t) A.*(1-t).*(t>=0.5 & t<=1.5);
+% %fori = f(t) + f1(t);
+% plot(t, f(t))
+% axis([-1 2 -4 4])
+% grid on;
+
+% t=-10:.01:10;
+% f= @(t) 0.*(t>-pi & t<-pi./2) + 1.*(t>-pi./2 & t<pi./2) + 0.*(t>pi & t<pi./2);
+% plot(t, f(t))
+% axis([-5 5 -.5 2])
+% grid on;
+
+x = -10 : 0.1 : 10;
+y = double(x == 0);
+plot(x, y);

@@ -1,0 +1,460 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Pr&aacute;ctica 6:  Sistemas diferenciales</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-06-03"><meta name="DC.source" content="Prac6SySmayo2017.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 6:  Sistemas diferenciales</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Nota</a></li><li><a href="#3">Sistemas diferenciales (Transformada de Fourier)</a></li><li><a href="#10">Sistemas diferenciales (Transformada de Laplace)</a></li><li><a href="#17">Entregables</a></li></ul></div><h2>Nota<a name="1"></a></h2><p>Se tiene que MATLAB presenta una definici&oacute;n del escal&oacute;n unitario <tt>heaviside(t)</tt>, donde <tt>heaviside(0)=0.5</tt>, para versiones mayores o iguales a 2016 esto puede configurarse al valor que se quiera, en nuestro caso queremos <tt>heaviside(0)=1</tt>, esto se logra ejecutando la siguiente instrucci&oacute;n</p><pre class="codeinput">sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+</pre><p>de no ser posible establecer la configuraci&oacute;n se tiene que tener en cuenta la definici&oacute;n de MATLAB.</p><h2>Sistemas diferenciales (Transformada de Fourier)<a name="3"></a></h2><p>Se utiliza el toolbox con herramientas de matem&aacute;ticas s&iacute;mbolicas, para generar un programa que resuelve sistemas diferenciales de orden n mediante transformada de Fourier, el programa despliega: paso por paso la metodolog&iacute;a de soluci&oacute;n, la soluci&oacute;n de la ecuaci&oacute;n diferencial, y la gr&aacute;fica tanto de la se&ntilde;al de entrada como de la se&ntilde;al de salida. El c&oacute;digo programado es el siguiente</p><pre class="language-matlab">
+<span class="keyword">function</span> fourier2016a(a,b,xi,t0)
+<span class="comment">% a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]</span>
+<span class="comment">% b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]</span>
+<span class="comment">% xi funci&oacute;n de entrada en terminos de la variable simbolica t previamente</span>
+<span class="comment">% declarada en el command window</span>
+<span class="comment">% t0 tiempo final para graficar la solucion, la derivada, y la segunda </span>
+<span class="comment">% derivada </span>
+<span class="comment">% ejemplo: resolver y^(2)+2y^(1)+2y=x^(1)+2x con y^(1)(0)=0</span>
+<span class="comment">% y(0)=0, x(0)=0, x(t)=exp(-t)u(t), para 5 segundos, se resuleve como</span>
+<span class="comment">% syms t</span>
+<span class="comment">% fourier2016a([2 2 1],[2 1],exp(-t)*heaviside(t),5)</span>
+close <span class="string">all</span>
+tam=size(a);
+tami=size(b);
+syms <span class="string">y(t)</span> <span class="string">Y(w)</span> <span class="string">x(t)</span> <span class="string">X(w)</span> <span class="string">Yy</span> <span class="string">fp</span>;
+syms <span class="string">edd</span> <span class="string">edi</span> 
+edd=0;
+edi=0;
+
+<span class="keyword">for</span> i=1:tam(2)
+   edd=edd+a(i)*(j*w)^(i-1)*Y(w);
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> i=1:tami(2)
+   edi=edi+b(i)*(j*w)^(i-1)*X(w);  
+<span class="keyword">end</span>
+mensaje(<span class="string">'APLICAMOS TRANSFORMADA DE FOURIER'</span>)
+
+pretty(edd)
+disp(<span class="string">'='</span>)
+pretty(edi)
+
+mensaje(<span class="string">'SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA'</span>)
+
+edi=subs(edi,X(w), fourier(xi));
+pretty(edd)
+disp(<span class="string">'='</span>)
+pretty(edi)
+
+mensaje(<span class="string">'DESPEJAMOS Y(w)'</span>)
+
+edd=collect(edd,Y(w));
+edd=subs(edd,Y(w),Yy);
+eq1=edd==edi;
+disp(<span class="string">'Y(w)='</span>)
+edd=solve(eq1, Yy);
+pretty(edd)
+
+<span class="comment">%%% Para versiones superiores a 2016</span>
+mensaje(<span class="string">'DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(w)'</span>)
+disp(<span class="string">'Y(w)='</span>)
+pretty(partfrac(edd))
+<span class="comment">%%%% Si se ejecuta en 2015 o menor comentar las 3 lineas anteriores</span>
+ 
+mensaje(<span class="string">'Aplicamos transformada inversa, asi la soluci&oacute;n es'</span>)
+disp(<span class="string">'y(t)='</span>)
+y(t)=ifourier(edd,t);
+pretty(y(t))
+
+figure (1)
+hFig = figure(1);
+set(hFig, <span class="string">'Position'</span>, [0 0 900 900])
+axes1 = axes(<span class="string">'Parent'</span>,hFig,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+tiempo=0:0.01:t0;
+fplot(xi,[0, t0],<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2)
+hold <span class="string">on</span>
+fplot(y,[0,t0],<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+legend(<span class="string">'Entrada x(t)'</span>,<span class="string">'Salida y(t)'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'tiempo'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+title(<span class="string">'Entrada y Respuesta del sistema'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+<span class="keyword">end</span>
+
+</pre><p>Entonces si se quiere resolver la ecuaci&oacute;n diferencial</p><p><img src="Prac6SySmayo2017_eq11938853752536249726.png" alt="$$\ddot{y}(t)+7\dot{y}(t)+10y(t)=u(t),\;\;y(0)=0,\;y'(0)=0$$"></p><p>Se ejecutan las siguientes instrucciones, aqu&iacute; es importante recordar que transformada de Fourier solo resuelve ecuaciones diferenciales donde las condiciones iniciales son nulas.</p><pre class="codeinput">syms <span class="string">t</span>
+fourier2016a([10 7 1],[1],heaviside(t),10)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE FOURIER
+ 
+           2
+10 Y(w) - w  Y(w) + w Y(w) 7i
+
+=
+X(w)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+           2
+10 Y(w) - w  Y(w) + w Y(w) 7i
+
+=
+              1i
+pi dirac(w) - --
+               w
+
+ 
+DESPEJAMOS Y(w)
+ 
+Y(w)=
+              1i
+pi dirac(w) - --
+               w
+----------------
+   2
+- w  + w 7i + 10
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(w)
+ 
+Y(w)=
+         w 1i                  7
+         ---- - pi dirac(w) + --
+   1i     10                  10
+- ---- - -----------------------
+  10 w          2
+             - w  + w 7i + 10
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+/ pi   pi sign(t)   pi exp(-2 t) (sign(t) + 1)   pi exp(-5 t) (sign(t) + 1)
+| -- + ---------- - -------------------------- + --------------------------
+\ 10       10                    6                           15
+
+     pi exp(-2 t) dirac(t)   pi exp(-5 t) dirac(t) \
+   - --------------------- + --------------------- |/(2 pi)
+               15                      15          /
+
+</pre><img vspace="5" hspace="5" src="Prac6SySmayo2017_01.png" alt=""> <p>Se observa que la expresi&oacute;n resultante no esta totalmente simplificada, posiblemente con algunas modificaciones de las instrucciones el resultado pueda desplegarse de manera simplificada, tambi&eacute;n se observa que las fracciones parciales no estan totalmente desarrolladas, la manipulaci&oacute;n de s&iacute;mbolos en MATLAB no es lo suficientemente robusta, pero es buena. Ahora observemos el resultado que se ha optenido en el siguiente <a href="http://www.mateyasi.org/transformada-de-fourier-continua.html">enlace</a></p><p><img src="Prac6SySmayo2017_eq10002846179190080297.png" alt="$$y(t)=\frac{1}{10}u(t)-\frac{1}{6}e^{-2t}u(t)+\frac{1}{15}e^{-5t}u(t)$$"></p><p>En la gr&aacute;fica se puede observar consistencia, pues observamos que cuando <img src="Prac6SySmayo2017_eq04939484103537639398.png" alt="$t\to\infty$"> el resultado tiende a <img src="Prac6SySmayo2017_eq04724808284356669986.png" alt="$0.1$"></p><h2>Sistemas diferenciales (Transformada de Laplace)<a name="10"></a></h2><p>Se utiliza el toolbox con herramientas de matem&aacute;ticas s&iacute;mbolicas, para generar un programa que resuelve sistemas diferenciales de orden n mediante transformada de Laplace, y condiciones iniciales en 0 por la izquierda (cero menos) el programa despliega: paso por paso la metodolog&iacute;a de soluci&oacute;n, la soluci&oacute;n de la ecuaci&oacute;n diferencial, y la gr&aacute;fica tanto de la se&ntilde;al de entrada como de la se&ntilde;al de salida y una gr&aacute;fica de la primera  y segunda derivada de la salida. El c&oacute;digo programado es el siguiente</p><pre class="language-matlab">
+<span class="keyword">function</span> laplace2016a(a,b,ciy,cix,xi,t0)
+<span class="comment">% a coeficientes de las derivadas de la salida menor a mayor [a_0, ..., a_n]</span>
+<span class="comment">% b coeficientes de las derivadas de la entrada menor a mayor [b_0, ..., b_m]</span>
+<span class="comment">% ciy condiciones iniciales de la salida de  menor a mayor [y(0), y(0)^(n-1)]</span>
+<span class="comment">% cix condiciones iniciales de la entrada de menor a meyor [x(0), x^(m-1)(0)]</span>
+<span class="comment">% xi funci&oacute;n de entrada en terminos de la variable simbolica t previamente</span>
+<span class="comment">% declarada en el command window</span>
+<span class="comment">% t0 tiempo final para graficar la solucion, la derivada, y la segunda </span>
+<span class="comment">% derivada </span>
+<span class="comment">% ejemplo: resolver y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x con y^(2)(0)=1 y^(1)=3</span>
+<span class="comment">% y(0)=2, x(0)=0 x^(1)=1, x(t)=exp(-t)cos(t)u(t), para 10 segundos, se resuleve como</span>
+<span class="comment">% syms t</span>
+<span class="comment">% laplace2016a([2 2 1 1],[2 -1 3],[2 3 1],[0 1],exp(-t)*cos(t)*heaviside(t),10)</span>
+close <span class="string">all</span>
+tam=size(a);
+tami=size(b);
+syms <span class="string">y(t)</span> <span class="string">Y(s)</span> <span class="string">x(t)</span> <span class="string">X(s)</span> <span class="string">Yy</span> <span class="string">fp</span>;
+syms <span class="string">edd</span> <span class="string">edi</span> 
+edd=0;
+edi=0;
+
+<span class="keyword">for</span> i=1:tam(2)
+   edd=edd+a(i)*s^(i-1)*Y(s);
+   <span class="keyword">for</span> k=1:i-1
+       edd=edd-a(i)*(s^(i-1-k)*ciy(k));
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> i=1:tami(2)
+   edi=edi+b(i)*s^(i-1)*X(s);
+   <span class="keyword">for</span> k=1:i-1
+       edi=edi-b(i)*(s^(i-1-k)*cix(k));
+   <span class="keyword">end</span>
+<span class="keyword">end</span>
+mensaje(<span class="string">'APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales'</span>)
+
+pretty(edd)
+disp(<span class="string">'='</span>)
+pretty(edi)
+
+mensaje(<span class="string">'SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA'</span>)
+
+edi=subs(edi,X(s), laplace(xi));
+pretty(edd)
+disp(<span class="string">'='</span>)
+pretty(edi)
+
+mensaje(<span class="string">'DESPEJAMOS Y(s)'</span>)
+
+edd=collect(edd,Y(s));
+edd=subs(edd,Y(s),Yy);
+eq1=edd==edi;
+disp(<span class="string">'Y(s)='</span>)
+edd=solve(eq1, Yy);
+pretty(edd)
+
+<span class="comment">%%% Para versiones superiores a 2016</span>
+mensaje(<span class="string">'DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)'</span>)
+disp(<span class="string">'Y(s)='</span>)
+pretty(partfrac(edd))
+<span class="comment">%%%% Si se ejecuta en 2015 o menor comentar las 3 lineas anteriores</span>
+
+mensaje(<span class="string">'Aplicamos transformada inversa, asi la soluci&oacute;n es'</span>)
+disp(<span class="string">'y(t)='</span>)
+y(t)=ilaplace(edd);
+pretty(y(t))
+
+dy(t)=diff(y,t);
+ddy(t)=diff(dy,t);
+figure (1)
+hFig = figure(1);
+set(hFig, <span class="string">'Position'</span>, [0 0 900 900])
+axes1 = axes(<span class="string">'Parent'</span>,hFig,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16);
+tiempo=0:0.01:t0;
+subplot(2,1,1)
+fplot(xi,[0, t0],<span class="string">'b'</span>,<span class="string">'LineWidth'</span>,2)
+
+hold <span class="string">on</span>
+fplot(y,[0,t0],<span class="string">'r'</span>,<span class="string">'LineWidth'</span>,2)
+
+legend(<span class="string">'Entrada x(t)'</span>,<span class="string">'Salida y(t)'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'tiempo'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+title(<span class="string">'Entrada y Respuesta del sistema'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+subplot(2,1,2)
+fplot(dy,[0,t0],<span class="string">'g'</span>,<span class="string">'LineWidth'</span>,2)
+
+hold <span class="string">on</span>
+title(<span class="string">'Primera y segunda derivada de la salida'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+fplot(ddy,[0,t0],<span class="string">'m'</span>,<span class="string">'LineWidth'</span>,2)
+
+legend(<span class="string">'dy(t)/dt'</span>,<span class="string">'d^2y(t)/d^2t'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>)
+xlabel(<span class="string">'tiempo'</span>,<span class="string">'FontWeight'</span>,<span class="string">'bold'</span>,<span class="string">'FontSize'</span>,16)
+grid <span class="string">on</span>
+<span class="keyword">end</span>
+
+</pre><p>Entonces si se quiere resolver la ecuaci&oacute;n diferencial</p><p><img src="Prac6SySmayo2017_eq11938853752536249726.png" alt="$$\ddot{y}(t)+7\dot{y}(t)+10y(t)=u(t),\;\;y(0)=0,\;y'(0)=0$$"></p><p>Se ejecutan las siguientes instrucciones,</p><pre class="codeinput">syms <span class="string">t</span>
+laplace2016a([10 7 1],[1],[0,0],[0],heaviside(t),10)
+</pre><pre class="codeoutput"> 
+APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
+ 
+                      2
+10 Y(s) + 7 s Y(s) + s  Y(s)
+
+=
+X(s)
+
+ 
+SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
+ 
+                      2
+10 Y(s) + 7 s Y(s) + s  Y(s)
+
+=
+1
+-
+s
+
+ 
+DESPEJAMOS Y(s)
+ 
+Y(s)=
+        1
+----------------
+ 3      2
+s  + 7 s  + 10 s
+
+ 
+DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
+ 
+Y(s)=
+     1           1         1
+---------- - --------- + ----
+15 (s + 5)   6 (s + 2)   10 s
+
+ 
+Aplicamos transformada inversa, asi la soluci&oacute;n es
+ 
+y(t)=
+exp(-5 t)   exp(-2 t)    1
+--------- - --------- + --
+    15          6       10
+
+</pre><img vspace="5" hspace="5" src="Prac6SySmayo2017_02.png" alt=""> <p>Se observa que la expresi&oacute;n resultante esta totalmente simplificada, posiblemente por que es este caso no hay manipulaci&oacute;pn de deltas de Dirac, es general la manipulaci&oacute;n de s&iacute;mbolos en MATLAB no es lo suficientemente robusta, pero es buena. Ahora observemos el resultado que se ha optenido en el siguiente <a href="http://www.mateyasi.org/transformada-de-fourier-continua.html">enlace</a></p><p><img src="Prac6SySmayo2017_eq10002846179190080297.png" alt="$$y(t)=\frac{1}{10}u(t)-\frac{1}{6}e^{-2t}u(t)+\frac{1}{15}e^{-5t}u(t)$$"></p><p>As&iacute; se logr&aacute; observar que el resultado es identico</p><h2>Entregables<a name="17"></a></h2><p>Para sistemas diferenciales realiza un programa con las siguientes caracter&iacute;sticas</p><div><ol><li>Muestra la funci&oacute;n de transferencia del sistema</li><li>Muestra la respuesta al impulso (simb&oacute;lico, gr&aacute;fica)</li><li>Muestra la respuesta a entrada cero (simb&oacute;lico, gr&aacute;fica)</li><li>Muestra la respuesta a estado cero (simb&oacute;lico, gr&aacute;fica)</li><li>Muestra la respuesta total (simb&oacute;lico, gr&aacute;fica)</li><li>La respuesta total al escal&oacute;n con condiciones iniciales 0 (simb&oacute;lico, gr&aacute;fica)</li><li>Usando subplot, depliega una figura con 5 gr&aacute;ficas</li></ol></div><p>Observa que los entregables pueden resolverse (solvo la funci&oacute;n de transferencia) con llamadas a la funciones presentadas en esta publicaci&oacute;n</p><p>Nota: Ejecuta los ejemplos descritos dentro de los comentarios de cada c&oacute;digo para que observes el uso de estos</p><p>Se entrega una publicaci&oacute;n en html de tu desarrollo y se probar&aacute; para un problema espec&iacute;fico.</p><p>El c&oacute;digo de esta publicaci&oacute;n lo puedes encontrar en el siguiente <a href="https://www.dropbox.com/s/ud9eqy2yuskx9ma/Prac6SySmayo2017.m?dl=0">enlace</a></p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Práctica 6:  Sistemas diferenciales 
+%% Nota
+% Se tiene que
+% MATLAB presenta una definición del escalón unitario |heaviside(t)|, donde 
+% |heaviside(0)=0.5|, para versiones mayores o iguales a 2016 esto puede
+% configurarse al valor que se quiera, en nuestro caso queremos 
+% |heaviside(0)=1|, esto se logra ejecutando la siguiente instrucción 
+sympref('HeavisideAtOrigin', 1);
+%% 
+% de no ser posible establecer la configuración se tiene que tener en
+% cuenta la definición de MATLAB.
+%% Sistemas diferenciales (Transformada de Fourier) 
+% Se utiliza el toolbox con herramientas de matemáticas símbolicas, para
+% generar un programa que resuelve sistemas diferenciales de orden n
+% mediante transformada de Fourier, el programa despliega: paso por paso 
+% la metodología de solución, la solución de la ecuación diferencial, 
+% y la gráfica tanto de la señal de entrada como de la señal de salida. El 
+% código programado es el siguiente
+%
+% <include>fourier2016a.m</include>
+%
+%%
+% Entonces si se quiere resolver la ecuación diferencial
+%%
+% 
+% $$\ddot{y}(t)+7\dot{y}(t)+10y(t)=u(t),\;\;y(0)=0,\;y'(0)=0$$
+% 
+%% 
+% Se ejecutan las siguientes instrucciones, aquí es importante recordar 
+% que transformada de Fourier solo resuelve ecuaciones diferenciales 
+% donde las condiciones iniciales son nulas.
+%
+syms t
+fourier2016a([10 7 1],[1],heaviside(t),10)
+%% 
+% Se observa que la expresión resultante no esta totalmente simplificada,
+% posiblemente con algunas modificaciones de las instrucciones el resultado
+% pueda desplegarse de manera simplificada, también se observa que las
+% fracciones parciales no estan totalmente desarrolladas, la manipulación 
+% de símbolos en MATLAB no es lo suficientemente robusta, pero es buena. 
+% Ahora observemos el resultado que se ha optenido en el siguiente
+% <http://www.mateyasi.org/transformada-de-fourier-continua.html enlace> 
+%
+%%
+% 
+% $$y(t)=\frac{1}{10}u(t)-\frac{1}{6}e^{-2t}u(t)+\frac{1}{15}e^{-5t}u(t)$$
+% 
+%% 
+% En la gráfica se puede observar consistencia, pues observamos que cuando 
+% $t\to\infty$ el resultado tiende a $0.1$
+%% Sistemas diferenciales (Transformada de Laplace) 
+% Se utiliza el toolbox con herramientas de matemáticas símbolicas, para
+% generar un programa que resuelve sistemas diferenciales de orden n
+% mediante transformada de Laplace, y condiciones iniciales en 0 por la
+% izquierda (cero menos) el programa despliega: paso por paso 
+% la metodología de solución, la solución de la ecuación diferencial, 
+% y la gráfica tanto de la señal de entrada como de la señal de salida 
+% y una gráfica de la primera  y segunda derivada de la salida. El
+% código programado es el siguiente
+%
+% <include>laplace2016a.m</include>
+%
+%%
+% Entonces si se quiere resolver la ecuación diferencial
+%%
+% 
+% $$\ddot{y}(t)+7\dot{y}(t)+10y(t)=u(t),\;\;y(0)=0,\;y'(0)=0$$
+% 
+%% 
+% Se ejecutan las siguientes instrucciones,
+%
+syms t
+laplace2016a([10 7 1],[1],[0,0],[0],heaviside(t),10)
+%% 
+% Se observa que la expresión resultante esta totalmente simplificada,
+% posiblemente por que es este caso no hay manipulaciópn de deltas de Dirac,
+% es general la manipulación de
+% símbolos en MATLAB no es lo suficientemente robusta, pero es buena. 
+% Ahora observemos el resultado que se ha optenido en el siguiente
+% <http://www.mateyasi.org/transformada-de-fourier-continua.html enlace> 
+%
+%%
+% 
+% $$y(t)=\frac{1}{10}u(t)-\frac{1}{6}e^{-2t}u(t)+\frac{1}{15}e^{-5t}u(t)$$
+% 
+%% 
+% Así se lográ observar que el resultado es identico
+%% Entregables
+% Para sistemas diferenciales realiza un programa con las siguientes
+% características
+% 
+% # Muestra la función de transferencia del sistema
+% # Muestra la respuesta al impulso (simbólico, gráfica)
+% # Muestra la respuesta a entrada cero (simbólico, gráfica)
+% # Muestra la respuesta a estado cero (simbólico, gráfica)
+% # Muestra la respuesta total (simbólico, gráfica)
+% # La respuesta total al escalón con condiciones iniciales 0 (simbólico, gráfica) 
+% # Usando subplot, depliega una figura con 5 gráficas
+% 
+% Observa que los entregables pueden resolverse (solvo la función de 
+% transferencia) con llamadas a la funciones
+% presentadas en esta publicación
+%
+% Nota: Ejecuta los ejemplos descritos dentro de los comentarios de cada
+% código para que observes el uso de estos
+%
+% Se entrega una publicación en html de tu desarrollo y se probará para un
+% problema específico. 
+% 
+% El código de esta publicación lo puedes encontrar en el siguiente 
+% <https://www.dropbox.com/s/ud9eqy2yuskx9ma/Prac6SySmayo2017.m?dl=0 enlace>
+
+
+##### SOURCE END #####
+--></body></html>

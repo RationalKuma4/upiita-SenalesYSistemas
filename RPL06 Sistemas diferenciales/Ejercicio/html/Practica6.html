@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Pr&aacute;ctica 6: Sistemas diferenciales</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-06-03"><meta name="DC.source" content="Practica6.m"><style type="text/css">
+      --><title>Pr&aacute;ctica 6: Sistemas diferenciales</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-06-04"><meta name="DC.source" content="Practica6.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,159 +66,29 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Pr&aacute;ctica 6: Sistemas diferenciales</h1><!--introduction--><p>Alvarado Balbuena Jorge Anselmo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Funcion de Transferencia del Sistema</a></li><li><a href="#2">Respuesta al impulso</a></li><li><a href="#3">Respuesta a entrada cero</a></li><li><a href="#4">Respuesta estado cero</a></li><li><a href="#5">Respuesta total</a></li><li><a href="#6">Respuesta total al escalon en condiciones iniciales</a></li><li><a href="#7">Graficas</a></li></ul></div><h2>Funcion de Transferencia del Sistema<a name="1"></a></h2><p>Parametro funcion x</p><pre class="codeinput">sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
-a = [10 7 1];
-b = 1;
-ciy = [0, 0];
-cix = 0;
-xi = heaviside(t);
-t0 = 10;
-
-<span class="comment">% Parametros funcion y</span>
-
-x = Laplace2016a(a, b, ciy, cix, xi, t0);
-y = Laplace2016a(a, b, ciy, cix, xi, t0);
-disp(<span class="string">'Funcion de tranferencia'</span>)
-pretty(y/x)
-</pre><pre class="codeoutput"> 
-APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
- 
-                      2
-10 Y(s) + 7 s Y(s) + s  Y(s)
-
-=
-X(s)
-
- 
-SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
- 
-                      2
-10 Y(s) + 7 s Y(s) + s  Y(s)
-
-=
-1
--
-s
-
- 
-DESPEJAMOS Y(s)
- 
-Y(s)=
-        1
-----------------
- 3      2
-s  + 7 s  + 10 s
-
- 
-DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
- 
-Y(s)=
-     1           1         1
----------- - --------- + ----
-15 (s + 5)   6 (s + 2)   10 s
-
- 
-Aplicamos transformada inversa, asi la soluci&oacute;n es
- 
-y(t)=
-exp(-5 t)   exp(-2 t)    1
---------- - --------- + --
-    15          6       10
-
- 
-APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales
- 
-                      2
-10 Y(s) + 7 s Y(s) + s  Y(s)
-
-=
-X(s)
-
- 
-SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA
- 
-                      2
-10 Y(s) + 7 s Y(s) + s  Y(s)
-
-=
-1
--
-s
-
- 
-DESPEJAMOS Y(s)
- 
-Y(s)=
-        1
-----------------
- 3      2
-s  + 7 s  + 10 s
-
- 
-DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)
- 
-Y(s)=
-     1           1         1
----------- - --------- + ----
-15 (s + 5)   6 (s + 2)   10 s
-
- 
-Aplicamos transformada inversa, asi la soluci&oacute;n es
- 
-y(t)=
-exp(-5 t)   exp(-2 t)    1
---------- - --------- + --
-    15          6       10
-
-Funcion de tranferencia
-1
-
-</pre><img vspace="5" hspace="5" src="Practica6_01.png" alt=""> <h2>Respuesta al impulso<a name="2"></a></h2><h2>Respuesta a entrada cero<a name="3"></a></h2><h2>Respuesta estado cero<a name="4"></a></h2><h2>Respuesta total<a name="5"></a></h2><h2>Respuesta total al escalon en condiciones iniciales<a name="6"></a></h2><h2>Graficas<a name="7"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 6: Sistemas diferenciales</h1><!--introduction--><p>Alvarado Balbuena Jorge Anselmo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Configuracion de funcion</a></li><li><a href="#2">Problema a resolver</a></li><li><a href="#3">Ejecucion de Funcion</a></li><li><a href="#4">Graficas</a></li></ul></div><h2>Configuracion de funcion<a name="1"></a></h2><p>Configuracion de funcion</p><pre class="codeinput">sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+</pre><h2>Problema a resolver<a name="2"></a></h2><p>Resolver <img src="Practica6_eq14190814218144667431.png" alt="$$y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x$">$ con <img src="Practica6_eq15163201308343522118.png" alt="$$y^(2)(0)=1 y^(1)=3$">$</p><p>y(0)=2, x(0)=0 x^(1)=1, x(t)=exp(-t)cos(t)u(t)</p><p>Para 10 segundos</p><h2>Ejecucion de Funcion<a name="3"></a></h2><pre class="codeinput">syms <span class="string">t</span>
+</pre><h2>Graficas<a name="4"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Práctica 6: Sistemas diferenciales
 % Alvarado Balbuena Jorge Anselmo
 %
-%% Funcion de Transferencia del Sistema
-%
-% Parametro funcion x
+%% Configuracion de funcion
+% Configuracion de funcion
 sympref('HeavisideAtOrigin', 1);
-a = [10 7 1];
-b = 1;
-ciy = [0, 0];
-cix = 0;
-xi = heaviside(t);
-t0 = 10;
 
-% Parametros funcion y
+%% Problema a resolver
+% Resolver $$y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x$$ con $$y^(2)(0)=1
+% y^(1)=3$$
+%
+% y(0)=2, x(0)=0 x^(1)=1, x(t)=exp(-t)cos(t)u(t)
+%
+% Para 10 segundos
 
-x = Laplace2016a(a, b, ciy, cix, xi, t0);
-y = Laplace2016a(a, b, ciy, cix, xi, t0);
-disp('Funcion de tranferencia')
-pretty(y/x)
-
-%% Respuesta al impulso
+%% Ejecucion de Funcion
 %
-%
-
-%% Respuesta a entrada cero
-%
-%
-
-%% Respuesta estado cero
-%
-%
-
-%% Respuesta total
-%
-%
-
-%% Respuesta total al escalon en condiciones iniciales
-%
-%
-
+syms t
 %% Graficas
-
-
-
+%
 ##### SOURCE END #####
 --></body></html>

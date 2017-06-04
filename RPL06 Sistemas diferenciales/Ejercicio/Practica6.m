@@ -1,44 +1,19 @@
 %% Práctica 6: Sistemas diferenciales
 % Alvarado Balbuena Jorge Anselmo
 %
-%% Funcion de Transferencia del Sistema
-%
-% Parametro funcion x
+%% Configuracion de funcion
+% Configuracion de funcion
 sympref('HeavisideAtOrigin', 1);
-a = [10 7 1];
-b = 1;
-ciy = [0, 0];
-cix = 0;
-xi = heaviside(t);
-t0 = 10;
 
-% Parametros funcion y
+%% Problema a resolver
+% Resolver y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x con y^(2)(0)=1 y^(1)=3
+%
+% y(0)=2, x(0)=0 x^(1)=1, x(t)=exp(-t)cos(t)u(t)
+%
+% Para 10 segundos
 
-x = Laplace2016a(a, b, ciy, cix, xi, t0);
-y = Laplace2016a(a, b, ciy, cix, xi, t0);
-disp('Funcion de tranferencia')
-pretty(y/x)
-
-%% Respuesta al impulso
+%% Ejecucion de Funcion
 %
-%
-
-%% Respuesta a entrada cero
-%
-%
-
-%% Respuesta estado cero
-%
-%
-
-%% Respuesta total
-%
-%
-
-%% Respuesta total al escalon en condiciones iniciales
-%
-%
-
+syms t
 %% Graficas
-
-
+%

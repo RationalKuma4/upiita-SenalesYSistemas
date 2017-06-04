@@ -24,20 +24,20 @@ function [ ] = Fourier2016a(a, b, xi, t0)
     for i=1:tami(2)
        edi=edi+b(i)*(1i*w)^(i-1)*X(w);  
     end
-    mensaje('APLICAMOS TRANSFORMADA DE FOURIER')
+    Mensaje('APLICAMOS TRANSFORMADA DE FOURIER')
 
     pretty(edd)
     disp('=')
     pretty(edi)
 
-    mensaje('SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA')
+    Mensaje('SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA')
 
     edi=subs(edi,X(w), fourier(xi));
     pretty(edd)
     disp('=')
     pretty(edi)
 
-    mensaje('DESPEJAMOS Y(w)')
+    Mensaje('DESPEJAMOS Y(w)')
 
     edd=collect(edd,Y(w));
     edd=subs(edd,Y(w),Yy);
@@ -47,12 +47,12 @@ function [ ] = Fourier2016a(a, b, xi, t0)
     pretty(edd)
 
     %%% Para versiones superiores a 2016
-    mensaje('DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(w)')
+    Mensaje('DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(w)')
     disp('Y(w)=')
     pretty(partfrac(edd))
     %%%% Si se ejecuta en 2015 o menor comentar las 3 lineas anteriores
 
-    mensaje('Aplicamos transformada inversa, asi la solución es')
+    Mensaje('Aplicamos transformada inversa, asi la solución es')
     disp('y(t)=')
     y(t)=ifourier(edd,t);
     pretty(y(t))

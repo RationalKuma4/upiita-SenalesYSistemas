@@ -34,20 +34,19 @@ function [y] = Laplace2016a(a, b, ciy, cix, xi, t0)
            edi=edi-b(i)*(s^(i-1-k)*cix(k));
        end
     end
-    Mensaje('APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales')
-
-    pretty(edd)
-    disp('=')
-    pretty(edi)
-
-    Mensaje('SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA')
+    
+%     Mensaje('APLICAMOS TRANSFORMADA DE LAPLACE y subtituimos condiciones iniciales')
+%     pretty(edd)
+%     disp('=')
+%     pretty(edi)
+%     Mensaje('SUBSTITUIMOS LA TRANSFORMADA DE LA ENTRADA')
 
     edi=subs(edi,X(s), laplace(xi));
-    pretty(edd)
-    disp('=')
-    pretty(edi)
+%     pretty(edd)
+%     disp('=')
+%     pretty(edi)
 
-    Mensaje('DESPEJAMOS Y(s)')
+%     Mensaje('DESPEJAMOS Y(s)')
     
     edd=collect(edd,Y(s));
     edd=subs(edd,Y(s),Yy);
@@ -60,33 +59,33 @@ function [y] = Laplace2016a(a, b, ciy, cix, xi, t0)
     estadoCero = edi;
     
     eq1=edd==edi;
-    disp('Y(s)=')
+%     disp('Y(s)=')
     edd=solve(eq1, Yy);
-    Mensaje(edd)
-    pretty(edd)
+%     Mensaje(edd)
+%     pretty(edd)
 
     %%% Para versiones superiores a 2016
-    Mensaje('DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)')
-    disp('Y(s)=')
-    pretty(partfrac(edd))
+%     Mensaje('DESARROLLAMOS LAS FRACCIONES PARCIALES DE Y(s)')
+%     disp('Y(s)=')
+%     pretty(partfrac(edd))
     %%%% Si se ejecuta en 2015 o menor comentar las 3 lineas anteriores
     
-    Mensaje('Aplicamos transformada inversa, asi la solución es');
+%     Mensaje('Aplicamos transformada inversa, asi la solución es');
+    Mensaje('La solución es');
     disp('y(t)=');
     y(t)=ilaplace(edd);
-    pretty(y(t));
+    disp(y(t))
+%     pretty(y(t));
 
     dy(t)=diff(y,t);
     ddy(t)=diff(dy,t);
-    
-    %%% Funcion de transferencias
-    
     
     %%% Grafica de la respuesta a entrada cero
     Mensaje('Respuesta entrada 0');
     solFracParc = partfrac(ecuacionEntradaCero);
     entradaCero = ilaplace(solFracParc);
-    pretty(entradaCero);
+%     pretty(entradaCero);
+    disp(entradaCero);
     
     figure(2);
     subplot(3,2,1);
@@ -99,7 +98,8 @@ function [y] = Laplace2016a(a, b, ciy, cix, xi, t0)
     Mensaje('Respuesta estado 0');
     solFracParc = partfrac(estadoCero);
     estadoCero = ilaplace(solFracParc);
-    pretty(estadoCero);
+%     pretty(estadoCero);
+    disp(estadoCero);
     
     subplot(3,2,2);
     fplot(estadoCero, [0,t0],'b','LineWidth',2);
@@ -107,10 +107,11 @@ function [y] = Laplace2016a(a, b, ciy, cix, xi, t0)
     legend('Respuesta a estado 0','Location','Best');
     xlabel('t','FontWeight','bold','FontSize',16);
     
-    %%% Grafica de la respuesta a estado cero
+    %%% Grafica de la respuesta total
     Mensaje('Respuesta Total');
     respTotal = entradaCero + estadoCero;
-    pretty(respTotal);
+%     pretty(respTotal);
+    disp(respTotal);
     
     subplot(3,2,3);
     fplot(respTotal, [0,t0],'b','LineWidth',2);
@@ -118,54 +119,59 @@ function [y] = Laplace2016a(a, b, ciy, cix, xi, t0)
     legend('Respuesta Total','Location','Best');
     xlabel('t','FontWeight','bold','FontSize',16);
     
+    %%% Funcion de transferencias
+    disp('Funcion de tranferencia')
+    funcionTransferencia = laplace(estadoCero)./laplace(xi);
+    disp(funcionTransferencia);
+    pretty(funcionTransferencia);
+    
     %%% Grafica respuesta al impulso
     Mensaje('Respuesta al impulso');
-    respTotal = entradaCero + estadoCero;
-    pretty(respTotal);
+    respuestaImpulso = ilaplace(funcionTransferencia);
+    disp(respuestaImpulso);
     
     subplot(3,2,4);
-    plot(t,sf);
+    fplot(respuestaImpulso, [0,t0],'b','LineWidth',2);
     grid on;
-    legend('Respuesta a estado 0','Location','Best');
+    legend('Respuesta al impulso','Location','Best');
     xlabel('t','FontWeight','bold','FontSize',16);
 
     %%% Grafica respuesta al escalon
-    Mensaje('Respuesta al impulso');
-    respTotal = entradaCero + estadoCero;
-    pretty(respTotal);
+    Mensaje('Respuesta al escalon');
+    respuestaEscalon = funcionTransferencia./s;
     
-    subplot(3,2,4);
-    plot(t,sf);
+    subplot(3,2,5);
+    fplot(ilaplace(respuestaEscalon), [0,t0],'b','LineWidth',2);
     grid on;
-    legend('Respuesta a estado 0','Location','Best');
+    legend('Respuesta al escalon','Location','Best');
     xlabel('t','FontWeight','bold','FontSize',16);
 
     
-%     figure (1)
-%     hFig = figure(1);
-%     set(hFig, 'Position', [0 0 900 900])
-% %     axes1 = axes('Parent',hFig,'FontWeight','bold','FontSize',16);
-% %     tiempo=0:0.01:t0;
-%     subplot(2,1,1)
-%     fplot(xi,[0, t0],'b','LineWidth',2)
-% 
-%     hold on
-%     fplot(y,[0,t0],'r','LineWidth',2)
-% 
-%     legend('Entrada x(t)','Salida y(t)','Location','Best')
-%     xlabel('tiempo','FontWeight','bold','FontSize',16)
-%     title('Entrada y Respuesta del sistema','FontWeight','bold','FontSize',16)
-%     grid on
-%     subplot(2,1,2)
-%     fplot(dy,[0,t0],'g','LineWidth',2)
-% 
-%     hold on
-%     title('Primera y segunda derivada de la salida','FontWeight','bold','FontSize',16)
-%     fplot(ddy,[0,t0],'m','LineWidth',2)
-% 
-%     legend('dy(t)/dt','d^2y(t)/d^2t','Location','Best')
-%     xlabel('tiempo','FontWeight','bold','FontSize',16)
-%     grid on
+    figure (1)
+    hFig = figure(1);
+    set(hFig, 'Position', [0 0 900 900])
+%     axes1 = axes('Parent',hFig,'FontWeight','bold','FontSize',16);
+%     tiempo=0:0.01:t0;
+    subplot(2,1,1)
+    fplot(xi,[0, t0],'b','LineWidth',2)
+
+    hold on
+    fplot(y,[0,t0],'r','LineWidth',2)
+
+    legend('Entrada x(t)','Salida y(t)','Location','Best')
+    xlabel('tiempo','FontWeight','bold','FontSize',16)
+    title('Entrada y Respuesta del sistema','FontWeight','bold','FontSize',16)
+    grid on
+    subplot(2,1,2)
+    fplot(dy,[0,t0],'g','LineWidth',2)
+
+    hold on
+    title('Primera y segunda derivada de la salida','FontWeight','bold','FontSize',16)
+    fplot(ddy,[0,t0],'m','LineWidth',2)
+
+    legend('dy(t)/dt','d^2y(t)/d^2t','Location','Best')
+    xlabel('tiempo','FontWeight','bold','FontSize',16)
+    grid on
 end
  
 %     %%% Grafica Respuesta total al escalon con condiciones iniciales 0

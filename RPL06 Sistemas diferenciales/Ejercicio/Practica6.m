@@ -14,6 +14,7 @@ sympref('HeavisideAtOrigin', 1);
 
 %% Ejecucion de Funcion
 %
+
+sympref('HeavisideAtOrigin', 1);
 syms t
-%% Graficas
-%
+Laplace2016a([6 5 1],[1 1],[2,-1],[0],2.*exp(-t),10)

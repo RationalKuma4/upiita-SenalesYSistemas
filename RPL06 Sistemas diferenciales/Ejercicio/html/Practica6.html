@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>Pr&aacute;ctica 6: Sistemas diferenciales</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-06-04"><meta name="DC.source" content="Practica6.m"><style type="text/css">
+      --><title>Pr&aacute;ctica 6: Sistemas diferenciales</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-06-05"><meta name="DC.source" content="Practica6.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,9 +66,45 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Pr&aacute;ctica 6: Sistemas diferenciales</h1><!--introduction--><p>Alvarado Balbuena Jorge Anselmo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Configuracion de funcion</a></li><li><a href="#2">Problema a resolver</a></li><li><a href="#3">Ejecucion de Funcion</a></li><li><a href="#4">Graficas</a></li></ul></div><h2>Configuracion de funcion<a name="1"></a></h2><p>Configuracion de funcion</p><pre class="codeinput">sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
-</pre><h2>Problema a resolver<a name="2"></a></h2><p>Resolver <img src="Practica6_eq14190814218144667431.png" alt="$$y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x$">$ con <img src="Practica6_eq15163201308343522118.png" alt="$$y^(2)(0)=1 y^(1)=3$">$</p><p>y(0)=2, x(0)=0 x^(1)=1, x(t)=exp(-t)cos(t)u(t)</p><p>Para 10 segundos</p><h2>Ejecucion de Funcion<a name="3"></a></h2><pre class="codeinput">syms <span class="string">t</span>
-</pre><h2>Graficas<a name="4"></a></h2><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 6: Sistemas diferenciales</h1><!--introduction--><p>Alvarado Balbuena Jorge Anselmo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Configuracion de funcion</a></li><li><a href="#2">Problema a resolver</a></li><li><a href="#3">Ejecucion de Funcion</a></li></ul></div><h2>Configuracion de funcion<a name="1"></a></h2><p>Configuracion de funcion</p><pre class="codeinput">sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+</pre><h2>Problema a resolver<a name="2"></a></h2><p>Resolver y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x con y^(2)(0)=1 y^(1)=3</p><p>y(0)=2, x(0)=0 x^(1)=1, x(t)=exp(-t)cos(t)u(t)</p><p>Para 10 segundos</p><h2>Ejecucion de Funcion<a name="3"></a></h2><pre class="codeinput">sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+syms <span class="string">t</span>
+Laplace2016a([6 5 1],[1 1],[2,-1],[0],2.*exp(-t),10)
+</pre><pre class="codeoutput"> 
+La soluci&oacute;n es
+ 
+y(t)=
+7*exp(-2*t) - 5*exp(-3*t)
+ 
+ 
+Respuesta entrada 0
+ 
+5*exp(-2*t) - 3*exp(-3*t)
+ 
+ 
+Respuesta estado 0
+ 
+2*dirac(t)
+ 
+ 
+Respuesta Total
+ 
+5*exp(-2*t) - 3*exp(-3*t) + 2*dirac(t)
+ 
+Funcion de tranferencia
+s + 1
+ 
+s + 1
+
+ 
+Respuesta al impulso
+ 
+ 
+ans(t) =
+ 
+7*exp(-2*t) - 5*exp(-3*t)
+ 
+</pre><img vspace="5" hspace="5" src="Practica6_01.png" alt=""> <img vspace="5" hspace="5" src="Practica6_02.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Práctica 6: Sistemas diferenciales
 % Alvarado Balbuena Jorge Anselmo
@@ -78,8 +114,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 sympref('HeavisideAtOrigin', 1);
 
 %% Problema a resolver
-% Resolver $$y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x$$ con $$y^(2)(0)=1
-% y^(1)=3$$
+% Resolver y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x con y^(2)(0)=1 y^(1)=3
 %
 % y(0)=2, x(0)=0 x^(1)=1, x(t)=exp(-t)cos(t)u(t)
 %
@@ -87,8 +122,9 @@ sympref('HeavisideAtOrigin', 1);
 
 %% Ejecucion de Funcion
 %
+
+sympref('HeavisideAtOrigin', 1);
 syms t
-%% Graficas
-%
+Laplace2016a([6 5 1],[1 1],[2,-1],[0],2.*exp(-t),10)
 ##### SOURCE END #####
 --></body></html>

@@ -91,7 +91,8 @@ function [y] = Laplace2016a(a, b, ciy, cix, xi, t0)
     subplot(3,2,1);
     fplot(entradaCero, [0,t0],'b','LineWidth',2);
     grid on;
-    legend('Respuesta a entrada 0','Location','Best');
+%     legend('Respuesta a entrada 0','Location','Best');
+    title('Respuesta a entrada 0')
     xlabel('t','FontWeight','bold','FontSize',16);
     
     %%% Grafica de la respuesta a estado cero
@@ -104,7 +105,8 @@ function [y] = Laplace2016a(a, b, ciy, cix, xi, t0)
     subplot(3,2,2);
     fplot(estadoCero, [0,t0],'b','LineWidth',2);
     grid on;
-    legend('Respuesta a estado 0','Location','Best');
+%     legend('Respuesta a estado 0','Location','Best');
+    title('Respuesta al estado 0')
     xlabel('t','FontWeight','bold','FontSize',16);
     
     %%% Grafica de la respuesta total
@@ -116,7 +118,8 @@ function [y] = Laplace2016a(a, b, ciy, cix, xi, t0)
     subplot(3,2,3);
     fplot(respTotal, [0,t0],'b','LineWidth',2);
     grid on;
-    legend('Respuesta Total','Location','Best');
+%     legend('Respuesta Total','Location','Best');
+    title('Respuesta Total')
     xlabel('t','FontWeight','bold','FontSize',16);
     
     %%% Funcion de transferencias
@@ -133,7 +136,8 @@ function [y] = Laplace2016a(a, b, ciy, cix, xi, t0)
     subplot(3,2,4);
     fplot(respuestaImpulso, [0,t0],'b','LineWidth',2);
     grid on;
-    legend('Respuesta al impulso','Location','Best');
+%     legend('Respuesta al impulso','Location','Best');
+    title('Respuesta al impulso')
     xlabel('t','FontWeight','bold','FontSize',16);
 
     %%% Grafica respuesta al escalon
@@ -143,7 +147,8 @@ function [y] = Laplace2016a(a, b, ciy, cix, xi, t0)
     subplot(3,2,5);
     fplot(ilaplace(respuestaEscalon), [0,t0],'b','LineWidth',2);
     grid on;
-    legend('Respuesta al escalon','Location','Best');
+%     legend('Respuesta al escalon','Location','Best');
+    title('Respuesta al escalon')
     xlabel('t','FontWeight','bold','FontSize',16);
 
     

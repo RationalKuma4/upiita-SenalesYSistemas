@@ -66,15 +66,15 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1>Pr&aacute;ctica 6: Sistemas diferenciales</h1><!--introduction--><p>Alvarado Balbuena Jorge Anselmo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Configuracion de funcion</a></li><li><a href="#2">Problema a resolver</a></li><li><a href="#3">Ejecucion de Funcion</a></li></ul></div><h2>Configuracion de funcion<a name="1"></a></h2><p>Configuracion de funcion</p><pre class="codeinput">sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
-</pre><h2>Problema a resolver<a name="2"></a></h2><p>Resolver y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x con y^(2)(0)=1 y^(1)=3</p><p>y(0)=2, x(0)=0 x^(1)=1, x(t)=exp(-t)cos(t)u(t)</p><p>Para 10 segundos</p><h2>Ejecucion de Funcion<a name="3"></a></h2><pre class="codeinput">syms <span class="string">t</span>
-Laplace2016aV2([6 5 1], [1 1], [2 -1], [0 0], 2.*exp(-t).*heaviside(t), 5)
+  </style></head><body><div class="content"><h1>Pr&aacute;ctica 6: Sistemas diferenciales</h1><!--introduction--><p>Alvarado Balbuena Jorge Anselmo</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Configuracion de funcion</a></li><li><a href="#2">Ejecucion de Funcion</a></li></ul></div><h2>Configuracion de funcion<a name="1"></a></h2><p>Configuracion de funcion</p><pre class="codeinput">sympref(<span class="string">'HeavisideAtOrigin'</span>, 1);
+syms <span class="string">t</span>
+</pre><h2>Ejecucion de Funcion<a name="2"></a></h2><pre class="codeinput">Laplace2016aV2([6 5 1], [1 1], [2 -1], [0 0], 2.*exp(-t).*heaviside(t), 5)
 
-Laplace2016aV2([10 7 1], [3 2], [0 0 0], [0 0], 3.*exp(-3.*t).*heaviside(t), 5)
+<span class="comment">% Laplace2016aV2([10 7 1], [3 2], [0 0 0], [0 0], 3.*exp(-3.*t).*heaviside(t), 5)</span>
 
-Laplace2016aV2([1 2 1], [1], [1 2], [0], heaviside(t), 5)
+<span class="comment">% Laplace2016aV2([1 2 1], [1], [1 2], [0], heaviside(t), 5)</span>
 
-Laplace2016aV2([2 2 1 1],[2 -1 3],[2 3 1],[0 1],exp(-t)*cos(t)*heaviside(t),10)
+<span class="comment">% Laplace2016aV2([2 2 1 1],[2 -1 3],[2 3 1],[0 1],exp(-t)*cos(t)*heaviside(t),5)</span>
 </pre><pre class="codeoutput">Funcion de tranferencia
     s + 1
 ------------
@@ -100,108 +100,6 @@ exp(-2 t)   exp(-3 t) 2   1
 
 exp(-2 t) 7 - exp(-3 t) 5
 
-Funcion de tranferencia
-   2 s + 3
--------------
- 2
-s  + 7 s + 10
-
-Respuesta al impulso
-exp(-5 t) 7   exp(-2 t)
------------ - ---------
-     3            3
-
-Respuesta a entrada cero
-0
-
-Respuesta a estado cero
-exp(-3 t) 9               exp(-5 t) 7
------------ - exp(-2 t) - -----------
-     2                         2
-
-Respuesta total
-exp(-3 t) 9               exp(-5 t) 7
------------ - exp(-2 t) - -----------
-     2                         2
-
-Respuesta total al escal&oacute;n con condiciones iniciales 0
-exp(-2 t)   exp(-5 t) 7    3
---------- - ----------- + --
-    6            15       10
-
-exp(-3 t) 9               exp(-5 t) 7
------------ - exp(-2 t) - -----------
-     2                         2
-
-Funcion de tranferencia
-      1
-------------
- 2
-s  + 2 s + 1
-
-Respuesta al impulso
-t exp(-t)
-
-Respuesta a entrada cero
-exp(-t) + 3 t exp(-t)
-
-Respuesta a estado cero
-1 - t exp(-t) - exp(-t)
-
-Respuesta total
-2 t exp(-t) + 1
-
-Respuesta total al escal&oacute;n con condiciones iniciales 0
-1 - t exp(-t) - exp(-t)
-
-2 t exp(-t) + 1
-
-Funcion de tranferencia
-      2
-   3 s  - s + 2
------------------
- 3    2
-s  + s  + 2 s + 2
-
-Respuesta al impulso
-2 exp(-t) + cos(sqrt(2) t) - sqrt(2) sin(sqrt(2) t)
-
-Respuesta a entrada cero
-5 exp(-t)   cos(sqrt(2) t)   7 sqrt(2) sin(sqrt(2) t)
---------- + -------------- + ------------------------
-    3              3                     3
-
-Respuesta a estado cero
-                                     /          5 sin(t) \
-2 cos(sqrt(2) t) - exp(-t) - exp(-t) | cos(t) - -------- |
-                                     \              2    /
-
-     3 sqrt(2) sin(sqrt(2) t)
-   - ------------------------
-                 4
-
-Respuesta total
-2 exp(-t)   7 cos(sqrt(2) t)           /          5 sin(t) \
---------- + ---------------- - exp(-t) | cos(t) - -------- |
-    3               3                  \              2    /
-
-     19 sqrt(2) sin(sqrt(2) t)
-   + -------------------------
-                 12
-
-Respuesta total al escal&oacute;n con condiciones iniciales 0
-                             sqrt(2) sin(sqrt(2) t)
-cos(sqrt(2) t) - 2 exp(-t) + ---------------------- + 1
-                                        2
-
-2 exp(-t)   7 cos(sqrt(2) t)           /          5 sin(t) \
---------- + ---------------- - exp(-t) | cos(t) - -------- |
-    3               3                  \              2    /
-
-     19 sqrt(2) sin(sqrt(2) t)
-   + -------------------------
-                 12
-
 </pre><img vspace="5" hspace="5" src="Practica6_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
 ##### SOURCE BEGIN #####
 %% Práctica 6: Sistemas diferenciales
@@ -210,23 +108,16 @@ cos(sqrt(2) t) - 2 exp(-t) + ---------------------- + 1
 %% Configuracion de funcion
 % Configuracion de funcion
 sympref('HeavisideAtOrigin', 1);
-
-%% Problema a resolver
-% Resolver y^(3)+y^(2)+2y^(1)+2y=3x^(2)-x^(1)+2x con y^(2)(0)=1 y^(1)=3
-%
-% y(0)=2, x(0)=0 x^(1)=1, x(t)=exp(-t)cos(t)u(t)
-%
-% Para 10 segundos
+syms t
 
 %% Ejecucion de Funcion
 %
-syms t
 Laplace2016aV2([6 5 1], [1 1], [2 -1], [0 0], 2.*exp(-t).*heaviside(t), 5)
 
-Laplace2016aV2([10 7 1], [3 2], [0 0 0], [0 0], 3.*exp(-3.*t).*heaviside(t), 5)
+% Laplace2016aV2([10 7 1], [3 2], [0 0 0], [0 0], 3.*exp(-3.*t).*heaviside(t), 5)
 
-Laplace2016aV2([1 2 1], [1], [1 2], [0], heaviside(t), 5)
+% Laplace2016aV2([1 2 1], [1], [1 2], [0], heaviside(t), 5)
 
-Laplace2016aV2([2 2 1 1],[2 -1 3],[2 3 1],[0 1],exp(-t)*cos(t)*heaviside(t),10)
+% Laplace2016aV2([2 2 1 1],[2 -1 3],[2 3 1],[0 1],exp(-t)*cos(t)*heaviside(t),5)
 ##### SOURCE END #####
 --></body></html>

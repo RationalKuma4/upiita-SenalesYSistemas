@@ -60,7 +60,7 @@ function [] = Laplace2016aV2(a, b, ciy, cix, xi, t0)
            entrada=entrada-b(i)*(s^(i-1-k)*0);
        end
     end
-    
+    tiempo=0:0.01:t0;
     salida=subs(salida,Y(s),1);
     entrada=subs(entrada,X(s),1);
     funcionTransferencia = entrada./salida;
@@ -70,7 +70,8 @@ function [] = Laplace2016aV2(a, b, ciy, cix, xi, t0)
     respuestaImpulso=ilaplace(funcionTransferencia);
     pretty(respuestaImpulso);
     subplot(3,2,1);
-    fplot(respuestaImpulso, [0,t0],'b','LineWidth',2);
+%     fplot(respuestaImpulso, [0,t0],'b','LineWidth',2);
+    plot(tiempo, subs(respuestaImpulso,tiempo), 'b','LineWidth',2)
     grid on;
     title('Respuesta al impulso')
     xlabel('t','FontWeight','bold','FontSize',16);
@@ -78,22 +79,24 @@ function [] = Laplace2016aV2(a, b, ciy, cix, xi, t0)
     disp('Respuesta a entrada cero')
     condicionEntradaCero=edd==0;
     ecuacionEntradaCero = solve(condicionEntradaCero, Yy);
-    parcialEntradaCero = partfrac(ecuacionEntradaCero);
-    entradaCero=ilaplace(parcialEntradaCero);
+    %parcialEntradaCero = partfrac(ecuacionEntradaCero);
+    entradaCero=ilaplace(ecuacionEntradaCero);
     pretty(entradaCero);
     subplot(3,2,2);
-    fplot(entradaCero, [0,t0],'b','LineWidth',2);
+%     fplot(entradaCero, [0,t0],'b','LineWidth',2);
+    plot(tiempo, subs(entradaCero,tiempo), 'b','LineWidth',2)
     grid on;
     title('Respuesta a entrada cero')
     xlabel('t','FontWeight','bold','FontSize',16);
     
     disp('Respuesta a estado cero');
     ecuacionEstadoCero = condicionEstadoCero.*(1./salida);
-    parcialEstadoCero = partfrac(ecuacionEstadoCero);
-    estadoCero = ilaplace(parcialEstadoCero);
+%     parcialEstadoCero = partfrac(ecuacionEstadoCero);
+    estadoCero = ilaplace(ecuacionEstadoCero);
     pretty(estadoCero);
     subplot(3,2,3);
-    fplot(estadoCero, [0,t0],'b','LineWidth',2);
+%     fplot(estadoCero, [0,t0],'b','LineWidth',2);
+plot(tiempo, subs(estadoCero,tiempo), 'b','LineWidth',2)
     grid on;
     title('Respuesta a estado cero')
     xlabel('t','FontWeight','bold','FontSize',16);
@@ -102,18 +105,20 @@ function [] = Laplace2016aV2(a, b, ciy, cix, xi, t0)
     respuestaTotal = entradaCero + estadoCero;
     pretty(respuestaTotal);
     subplot(3,2,4);
-    fplot(respuestaTotal, [0,t0],'b','LineWidth',2);
+%     fplot(respuestaTotal, [0,t0],'b','LineWidth',2);
+    plot(tiempo, subs(respuestaTotal,tiempo), 'b','LineWidth',2)
     grid on;
     title('Respuesta total')
     xlabel('t','FontWeight','bold','FontSize',16);
     
     disp('Respuesta total al escalón con condiciones iniciales 0');
     ecuacionRespuestaEscalon = funcionTransferencia.*(1./s);
-    parcialRespuestaEscalon = partfrac(ecuacionRespuestaEscalon);
-    respuestaEscalon = ilaplace(parcialRespuestaEscalon);
+%     parcialRespuestaEscalon = partfrac(ecuacionRespuestaEscalon);
+    respuestaEscalon = ilaplace(ecuacionRespuestaEscalon);
     pretty(respuestaEscalon);
     subplot(3,2,5);
-    fplot(respuestaEscalon, [0,t0],'b','LineWidth',2);
+%     fplot(respuestaEscalon, [0,t0],'b','LineWidth',2);
+    plot(tiempo, subs(respuestaEscalon,tiempo), 'b','LineWidth',2)
     grid on;
     title('Respuesta total al escalón con condiciones iniciales 0')
     xlabel('t','FontWeight','bold','FontSize',16);
